@@ -25,13 +25,21 @@
   
     $: {
         error = null
-      fetchPokemonData(); // Call the function to fetch data
+      fetchPokemonData();
+      // Added console.log so that reactive is functional.
+      // No solution yet why this is happening.
       console.log(pokemon);
     }
   
     function capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
+
+    function formatPokemonId(id) {
+    let idString = id.toString();
+    let zerosNeeded = 3 - idString.length;
+    return '0'.repeat(zerosNeeded) + idString;
+  }
   </script>
   
   <div class="card">
@@ -42,10 +50,9 @@
         src={pokemonData.sprites.front_default}
         alt="{pokemonData.species.name} photo"
       />
-      <p>#{pokemonData.id}</p>
+      <p>#{formatPokemonId(pokemonData.id)}</p>
       <h2>{capitalizeFirstLetter(pokemonData.species.name)}</h2>
-  
-      <!-- Render other data as needed -->
+
     {:else}
       <p>Loading...</p>
     {/if}
