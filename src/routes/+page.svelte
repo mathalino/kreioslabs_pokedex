@@ -1,24 +1,43 @@
 <script>
-import { onMount } from 'svelte';
-
+  import { onMount } from "svelte";
   import Card from "./Card.svelte";
-  let pokemonUrls = [];
-  let nextUrl = '';
+  import Header from "./Header.svelte";
+
+  let pokemonData = [];
+  let morePokemons = "";
+
+  // Fetch Pokémon data when the component is mounted
   onMount(async () => {
-    fetchPokemon('https://pokeapi.co/api/v2/pokemon');
+    fetchPokemons("https://pokeapi.co/api/v2/pokemon");
   });
 
-  async function fetchPokemon(url) {
+  // Function to fetch Pokémon data
+  async function fetchPokemons(url) {
     const response = await fetch(url);
     const data = await response.json();
-    pokemonUrls = [...pokemonUrls, ...data.results.map(item => item.url)];
-    nextUrl = data.next;
+    pokemonData = [...pokemonData, ...data.results];
+    morePokemons = data.next;
   }
 
+
+  // Function to load more Pokémon
   function loadMore() {
-    if (nextUrl) {
-      fetchPokemon(nextUrl);
+    if (morePokemons) {
+      fetchPokemons(morePokemons);
     }
+  }
+
+  // Function to handle search event from Header component
+  async function handleSearch(event) {
+    const searchQuery = event.detail.toLowerCase();
+	console.log(searchQuery)
+    if (searchQuery) {
+		pokemonData = [{ url: `https://pokeapi.co/api/v2/pokemon/${searchQuery}` }];
+	  console.log(pokemonData)
+    }else{
+		pokemonData = [];
+		fetchPokemons("https://pokeapi.co/api/v2/pokemon");
+	}
   }
 </script>
 
@@ -27,11 +46,10 @@ import { onMount } from 'svelte';
   <meta name="description" content="Pokédex Demo App" />
 </svelte:head>
 
+<Header on:search={handleSearch} />
 <section class="container">
-  {#each pokemonUrls as url}
-    <Card {url} />
+  {#each pokemonData as pokemon}
+    <Card {pokemon} />
   {/each}
 </section>
-<button class="bg-cyan-400" on:click={loadMore}>Load More Pokémon</button>
-
-
+<button class="load-more" on:click={loadMore}>Load more Pokémon</button>

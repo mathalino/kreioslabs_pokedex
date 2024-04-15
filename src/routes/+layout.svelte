@@ -1,15 +1,11 @@
 <script>
-	import Header from './Header.svelte';
-	import '../app.css';
+  import "../app.css";
 </script>
 
-<div>
-	<Header/>
-	<main>
-		<slot />
-	</main>
+<main>
+  <slot />
+</main>
 
-	<footer>
-		<!--  -->
-	</footer>
-</div>
+<footer>
+	<!--  -->
+</footer>

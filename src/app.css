@@ -612,14 +612,10 @@ video {
   border-width: 1px;
 }
 
-.bg-cyan-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 211 238 / var(--tw-bg-opacity));
-}
-
 header {
   margin: 1.5rem;
   display: grid;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
@@ -769,7 +765,31 @@ main {
 }
 
 .card h2 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
   font-weight: 700;
 }
 
+.load-more {
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 211 238 / var(--tw-bg-opacity));
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.load-more:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(8 145 178 / var(--tw-bg-opacity));
+}
 
