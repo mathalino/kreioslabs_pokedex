@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* Header */
 header{
     @apply m-6 sm:m-10 grid sm:grid-cols-2 w-full;
 }
@@ -31,16 +31,28 @@ header .search{
     @apply ms-1 mt-4 text-gray-400 text-xs;
 }
 
+/* Main */
+
 main{
     @apply m-4 sm:m-10 flex justify-center flex-col items-center;
 }
 
+/* Container */
 .container{
-    @apply w-full sm:px-14 m-6 sm:m-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+    @apply w-full sm:px-14 m-6 sm:m-10;
+}
+.card-container{
+    @apply grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+.load-more{
+    @apply bg-cyan-400 hover:bg-cyan-600 transition duration-150 px-6 py-4 rounded-lg text-white font-bold; 
 }
 
+
+
+/* Card */
 .card{
-    @apply flex flex-col;
+    @apply flex flex-col border border-gray-300 rounded-lg p-6 m-6;
 }
 
 .card p{
@@ -49,10 +61,5 @@ main{
 
 .card h2{
     @apply font-bold text-xl;
-}
-
-
-.load-more{
-    @apply bg-cyan-400 hover:bg-cyan-600 transition duration-150 px-6 py-4 rounded-lg text-white font-bold; 
 }
 

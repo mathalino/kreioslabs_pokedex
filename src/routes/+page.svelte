@@ -40,7 +40,12 @@
     const searchQuery = event.detail.toLowerCase();
     if (searchQuery) {
       hasLoadMoreButton = false;
-      pokemonData = [{ url: `https://pokeapi.co/api/v2/pokemon/${searchQuery}` }];
+      pokemonData = [
+        {
+          name: searchQuery,
+          url: `https://pokeapi.co/api/v2/pokemon/${searchQuery}`,
+        },
+      ];
     } else {
       hasLoadMoreButton = true;
       pokemonData = [];
@@ -54,14 +59,14 @@
   <meta name="description" content="Pokédex Demo App" />
 </svelte:head>
 
-<Header on:search={handleSearch} hasLoadMoreButton={hasLoadMoreButton} />
-<section class="container">
+<Header on:search={handleSearch} />
+<section class="card-container container">
   {#each pokemonData as pokemon}
-    <Card {pokemon} />
+    <a href={`pokedex/${pokemon.name}`}>
+      <Card {pokemon} />
+    </a>
   {/each}
 </section>
 {#if hasLoadMoreButton}
-  <button class="load-more" on:click={loadMore}>
-    Load more Pokémon
-  </button>
+  <button class="load-more" on:click={loadMore}> Load more Pokémon </button>
 {/if}

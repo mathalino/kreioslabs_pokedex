@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte";
 
+  import {capitalizeFirstLetter, formatPokemonId} from '../lib/js/reusables';
+
   export let pokemon;
   let pokemonData;
   let error = null;
@@ -33,19 +35,6 @@
     console.log(pokemon);
   }
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  function formatPokemonId(id) {
-    let idString = id.toString();
-    if (idString.length <= 3) {
-      let zerosNeeded = 3 - idString.length;
-      return "0".repeat(zerosNeeded) + idString;
-    } else {
-      return idString;
-    }
-  }
 </script>
 
 <div class="card">
@@ -62,12 +51,3 @@
     <h2>{capitalizeFirstLetter(pokemonData.species.name)}</h2>
   {/if}
 </div>
-
-<style>
-  .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px;
-  }
-</style>
