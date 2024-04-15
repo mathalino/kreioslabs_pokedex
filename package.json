@@ -4,7 +4,8 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"tailwind": "npx tailwindcss -i ./src/input.css -o ./src/app.css --watch"
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",

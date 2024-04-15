@@ -3,3 +3,52 @@
 @tailwind utilities;
 
 
+header{
+    @apply m-6 sm:m-10 grid sm:grid-cols-2;
+}
+
+header img{
+    @apply w-52;
+}
+
+header a{
+    @apply flex justify-center sm:justify-start;
+}
+
+header .search{
+    @apply flex items-center mt-4 sm:mt-0;
+}
+
+.search input{
+    @apply w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring focus:border-blue-300;
+}
+
+.search button{
+    @apply px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring focus:bg-blue-600;
+}
+
+.search span{
+    @apply ms-1 mt-4 text-gray-400 text-xs;
+}
+
+main{
+    @apply m-4 sm:m-10 flex justify-center flex-col items-center;
+}
+
+.container{
+    @apply w-full sm:px-14 m-6 sm:m-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+
+.card{
+    @apply flex flex-col;
+}
+
+.card p{
+    @apply text-gray-400 font-semibold;
+}
+
+.card h2{
+    @apply font-bold;
+}
+
+
