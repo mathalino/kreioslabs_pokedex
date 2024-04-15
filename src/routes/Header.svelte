@@ -4,15 +4,15 @@
   
     // Dispatch custom event to communicate with parent component
     const dispatch = createEventDispatcher();
+
   
     let searchQuery = '';
-    let buttonClicked = false; // Reactive variable to track button click
   
     function handleSubmit(event) {
       event.preventDefault();
       // Dispatch search event with the search query
+      
       dispatch('search', searchQuery);
-      buttonClicked = !buttonClicked; // Toggle the value to trigger reactivity
     }
   </script>
   

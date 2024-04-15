@@ -5,6 +5,8 @@
 
   let pokemonData = [];
   let morePokemons = "";
+  let isLoading = false;
+  let hasLoadMoreButton = true;
 
   // Fetch Pokémon data when the component is mounted
   onMount(async () => {
@@ -13,16 +15,22 @@
 
   // Function to fetch Pokémon data
   async function fetchPokemons(url) {
-    const response = await fetch(url);
-    const data = await response.json();
-    pokemonData = [...pokemonData, ...data.results];
-    morePokemons = data.next;
+    isLoading = true;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      pokemonData = [...pokemonData, ...data.results];
+      morePokemons = data.next;
+    } catch (error) {
+      console.error("Error fetching Pokémon data:", error);
+    } finally {
+      isLoading = false;
+    }
   }
-
 
   // Function to load more Pokémon
   function loadMore() {
-    if (morePokemons) {
+    if (morePokemons && !isLoading) {
       fetchPokemons(morePokemons);
     }
   }
@@ -30,14 +38,14 @@
   // Function to handle search event from Header component
   async function handleSearch(event) {
     const searchQuery = event.detail.toLowerCase();
-	console.log(searchQuery)
     if (searchQuery) {
-		pokemonData = [{ url: `https://pokeapi.co/api/v2/pokemon/${searchQuery}` }];
-	  console.log(pokemonData)
-    }else{
-		pokemonData = [];
-		fetchPokemons("https://pokeapi.co/api/v2/pokemon");
-	}
+      hasLoadMoreButton = false;
+      pokemonData = [{ url: `https://pokeapi.co/api/v2/pokemon/${searchQuery}` }];
+    } else {
+      hasLoadMoreButton = true;
+      pokemonData = [];
+      fetchPokemons("https://pokeapi.co/api/v2/pokemon");
+    }
   }
 </script>
 
@@ -46,10 +54,14 @@
   <meta name="description" content="Pokédex Demo App" />
 </svelte:head>
 
-<Header on:search={handleSearch} />
+<Header on:search={handleSearch} hasLoadMoreButton={hasLoadMoreButton} />
 <section class="container">
   {#each pokemonData as pokemon}
     <Card {pokemon} />
   {/each}
 </section>
-<button class="load-more" on:click={loadMore}>Load more Pokémon</button>
+{#if hasLoadMoreButton}
+  <button class="load-more" on:click={loadMore}>
+    Load more Pokémon
+  </button>
+{/if}
