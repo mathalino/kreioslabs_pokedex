@@ -2,8 +2,6 @@
   import { capitalizeFirstLetter, formatPokemonId } from "../lib/js/reusables";
 
   export let pokemon;
-  let error = null;
-  let isLoading = false;
 </script>
 
 <div class="card">
