@@ -47,7 +47,7 @@
       class="w-full"
     />
     <div class="text-white flex justify-between p-2 absolute bottom-0 w-full rounded-b-lg" style="background-color: rgba(0,0,0,.5);">
-      <p>#{formatPokemonId(pokemon.id)}</p>
+      <span>#{formatPokemonId(pokemon.id)}</span>
       <h2>{capitalizeFirstLetter(pokemon.species.name)}</h2>
     </div>
   </div>

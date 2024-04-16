@@ -1022,8 +1022,14 @@ main {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.card p {
+.card img:hover{
+  background-color: rgba(255,255,255,.3);
+}
+
+.card span {
   font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .card h2 {
