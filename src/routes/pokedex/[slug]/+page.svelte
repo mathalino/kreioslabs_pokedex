@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-
   export let data;
   let pokemonWeaknesses = [];
   let pokemonTypes = [];
@@ -12,10 +11,12 @@
 
   import DisplayData from "./DisplayData.svelte";
   import PokemonTypes from "./PokemonTypes.svelte";
+  import PageId from "./PageId.svelte";
+  import PageName from "./PageName.svelte";
 
   onMount(async () => {
     pokemonTypes = await Promise.all(
-      data.item.types.map(async (item) => {
+      data.current.types.map(async (item) => {
         const response = await fetch(item.type.url);
         const responseData = await response.json();
         pokemonWeaknesses = pokemonWeaknesses.concat(
@@ -26,19 +27,37 @@
     );
   });
 
-  $: console.log(pokemonTypes);
+  $: console.log(data);
 </script>
 
 <svelte:head>
-  <title>{capitalizeFirstLetter(data.item.species.name)} | Pokédex</title>
+  <title>{capitalizeFirstLetter(data.current.species.name)} | Pokédex</title>
 </svelte:head>
 
+<div class="mt-5 w-full grid grid-cols-2 gap-1">
+  <a href="/pokedex/{data.previous.species.name}">
+    <div
+      class="bg-gray-400 rounded-l-2xl p-4 flex justify-center items-center font-bold text-2xl hover:bg-cyan-500 transition duration-150"
+    >
+      &lt;<PageId id={data.previous.id} />
+      <PageName name={data.previous.species.name} />
+    </div>
+  </a>
+  <a href="/pokedex/{data.next.species.name}">
+    <div
+      class="bg-gray-400 rounded-r-2xl p-4 flex justify-center items-center font-bold text-2xl hover:bg-cyan-500 transition duration-150"
+    >
+      <PageName name={data.next.species.name} />
+      <PageId id={data.next.id} /> &gt;
+    </div>
+  </a>
+</div>
 <div class="container">
   <div class="flex justify-center">
     <h1 class="text-4xl font-bold">
-      {capitalizeFirstLetter(data.item.species.name)}
+      {capitalizeFirstLetter(data.current.species.name)}
       <span class="text-gray-400">
-        #{formatPokemonId(data.item.id)}
+        #{formatPokemonId(data.current.id)}
       </span>
     </h1>
   </div>
@@ -46,8 +65,8 @@
     <div>
       <img
         class="w-full"
-        src={data.item.sprites.front_default}
-        alt="{data.item.species.name} photo"
+        src={data.current.sprites.front_default}
+        alt="{data.current.species.name} photo"
       />
     </div>
     <div class="">
@@ -55,13 +74,12 @@
         class="flex flex-col bg-cyan-400 mb-4 p-6 h-fit w-full rounded-lg shadow-lg"
       >
         <div class=" grid md:grid-cols-2 gap-2 text-center md:text-start">
-          <DisplayData label="Height" data={data.item.height + "'"} />
-          <DisplayData label="Weight" data={data.item.weight + " lbs"} />
+          <DisplayData label="Height" data={data.current.height + "'"} />
+          <DisplayData label="Weight" data={data.current.weight + " lbs"} />
         </div>
         <div class="text-center md:text-start mt-3">
-          <DisplayData label="Abilities" data={data.item.abilities} />
+          <DisplayData label="Abilities" data={data.current.abilities} />
         </div>
-        
       </div>
 
       <div class="mb-4">
