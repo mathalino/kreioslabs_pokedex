@@ -12,6 +12,7 @@
   import PokemonTypes from "./PokemonTypes.svelte";
   import PageId from "./PageId.svelte";
   import PageName from "./PageName.svelte";
+  import PageTitle from "./PageTitle.svelte";
 
 
 
@@ -100,17 +101,15 @@
     <!-- profile -->
     <div class="">
       <!-- profile title -->
-      <div class="p-2 type-{data.current.types[0].type.name}">
-        <h1 class="text-base sm:text-xl font-semibold">Profile</h1>
-      </div>
+      <PageTitle title='Profile' typeName={data.current.types[0].type.name}/>
       <!-- profile title end -->
       <!-- abilities, height, weight -->
-      <div class="flex flex-col p-6 h-fit w-full rounded-lg">
-        <div class=" grid grid-cols-2 gap-2 md:text-start">
+      <div class="profile-details">
+        <div class=" grid grid-cols-2 gap-2">
           <DisplayData label="Height" data={data.current.height / 10 + " m"} />
           <DisplayData label="Weight" data={data.current.weight / 10 + " kg"} />
         </div>
-        <div class="md:text-start mt-3">
+        <div class="mt-3">
           <DisplayData label="Abilities" data={data.current.abilities} />
         </div>
       </div>
@@ -121,9 +120,7 @@
     <!-- weakness -->
     <div class="">
       <!-- weakness title -->
-      <div class="p-2 type-{data.current.types[0].type.name}">
-        <h1 class="text-base sm:text-xl font-semibold">Weak against</h1>
-      </div>
+      <PageTitle title='Weak Against' typeName={data.current.types[0].type.name}/>
       <!-- weakness title end -->
       <div class="flex p-6">
         {#each data.pokemonWeaknesses as item}

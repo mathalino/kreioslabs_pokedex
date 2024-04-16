@@ -1,38 +1,48 @@
-# create-svelte
+# Pokedéx using Pokémon API
+This project represents a simple yet functional web application that utilizes the [`Pokémon API `](https://pokeapi.co/) and Tailwind CSS. Developed as part of the assessment for the KreiosLabs Internship Program, this project aims to demonstrate practical skills in web development and API integration.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+The application leverages the Pokémon API to fetch and display information about various Pokémon species. By utilizing Tailwind CSS, the project ensures a responsive user interface.
 
-## Creating a project
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Getting Started
+To get a local copy up and running, follow these simple steps:
+
+### Prerequisites
+Node.js installed on your machine.
+
+### Installation
+1. Clone the repo
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+git clone https://github.com/mathalino/kreioslabs_pokedex.git
 ```
 
-## Developing
+2. Navigate to the project directory
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```bash
+cd kreioslabs_pokedex
+```
+
+3. Install npm dependencies
+
+```bash
+npm install
+```
+
+### Running the Project
+1. Open a terminal and run the development server
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+2. Open another terminal and run the Tailwind CSS watcher
 
 ```bash
-npm run build
+npm run tailwind
 ```
 
-You can preview the production build with `npm run preview`.
+3. Access the website by opening your web browser and navigate to http://localhost:5173 to view the website.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+### Stopping the Project
+To stop the development server and Tailwind CSS watcher, you can simply press Ctrl + C in each terminal window.

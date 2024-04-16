@@ -32,6 +32,12 @@ main {
   @apply grid md:grid-cols-2 gap-4 mt-6;
 }
 
+/* profile-details */
+.profile-details{
+    @apply flex flex-col p-6 h-fit w-full rounded-lg;
+}
+
+
 /* Search */
 .search {
   @apply w-full grid grid-cols-5 rounded-3xl drop-shadow-md;
