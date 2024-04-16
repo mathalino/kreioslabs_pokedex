@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Card from "./Card.svelte";
-  import pokemon_logo from "$lib/images/pokemon-logo.png";
+  import pokedex_logo from "$lib/images/pokedex-logo.png";
 
   let pokemonUrls = [];
 
@@ -77,7 +77,7 @@
 
 <header>
   <a href="/" onclick="window.location.reload();">
-    <img src={pokemon_logo} alt="Pokemon Logo" />
+    <img src={pokedex_logo} alt="Pokemon Logo" />
   </a>
   <div class="search">
     <div class="w-full grid grid-cols-4">
@@ -112,4 +112,6 @@
   </section>
 {/if}
 
+{#if !loading}
 <button class="load-more" on:click={loadMore}>Load more Pokémon</button>
+{/if}

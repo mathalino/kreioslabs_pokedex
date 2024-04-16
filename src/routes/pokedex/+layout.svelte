@@ -1,8 +1,8 @@
 <script>
-  import pokemon_logo from "$lib/images/pokemon-logo.png";
+  import pokedex_logo from "$lib/images/pokedex-logo.png";
 </script>
 
 <a href="/">
-  <img class="w-72" src={pokemon_logo} alt="Pokemon Logo" />
+  <img class="w-72" src={pokedex_logo} alt="Pokemon Logo" />
 </a>
 <slot />
