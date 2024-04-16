@@ -5,8 +5,8 @@
 </script>
 
 <div
-  class="px-10 py-0.5 ms-2 mt-2 type-{pokemonType.name} font-semibold rounded-lg"
+  class="px-2 py-0.5 ms-2 type-{pokemonType.name} font-extrabold h-fit text-sm sm:text-base"
 >
-  {capitalizeFirstLetter(pokemonType.name)}
+  {pokemonType.name.toUpperCase()}
 </div>
 

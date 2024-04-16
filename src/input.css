@@ -4,7 +4,7 @@
 
 /* reusables */
 .container {
-  @apply flex flex-col px-4 my-3;
+  @apply flex flex-col px-1 sm:px-4 my-3;
 }
 
 /* Main */
@@ -15,8 +15,8 @@ main {
 /* Nav */
 .nav {
   @apply p-6 flex justify-center md:justify-start;
-  background: -webkit-linear-gradient(top, red, white); /* For Safari */
-  background: linear-gradient(to bottom, red, white); /* Standard syntax */
+  /* background: -webkit-linear-gradient(top, red, white);
+  background: linear-gradient(to bottom, red, white);  */
 }
 
 .directional-btn-container {

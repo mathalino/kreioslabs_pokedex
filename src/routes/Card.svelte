@@ -1,33 +1,11 @@
 <script>
   import { onMount } from "svelte";
-  import { capitalizeFirstLetter, formatPokemonId } from "../lib/js/reusables";
+  import { capitalizeFirstLetter, formatPokemonId, typeColors } from "../lib/js/reusables";
 
   export let pokemon;
   let pokemonTypes = [];
   pokemon.types.forEach((poke) => pokemonTypes.push(poke.type.name));
 
-  const typeColors = {
-    normal: "#a8a878",
-    fire: "#f08030",
-    water: "#6890f0",
-    electric: "#f8d030",
-    grass: "#78c850",
-    ice: "#98d8d8",
-    fighting: "#c03028",
-    poison: "#a040a0",
-    ground: "#e0c068",
-    flying: "#a890f0",
-    psychic: "#f85888",
-    bug: "#a8b820",
-    rock: "#b8a038",
-    ghost: "#705898",
-    dragon: "#7038f8",
-    dark: "#705848",
-    steel: "#b8b8d0",
-    fairy: "#f0b6bc",
-  };
-  console.log("------");
-  console.log(pokemonTypes.length);
 </script>
 
 {#if pokemon}

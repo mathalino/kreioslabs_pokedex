@@ -7,9 +7,9 @@
   } from "../../../lib/js/reusables";
 </script>
 
-<div class="font-bold">
-  <span class="text-xl text-white">{label}</span>
-  <p class="text-2xl">
+<div class="grid grid-cols-2 text-sm sm:text-xl">
+  <span class="font-bold">{label}:</span>
+  <p class="">
     {#if typeof data === "string"}
       {data}
     {:else}
