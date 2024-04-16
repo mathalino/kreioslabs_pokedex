@@ -3,64 +3,147 @@
 @tailwind utilities;
 
 /* reusables */
-.container{
-    @apply flex flex-col px-6 my-4;
+.container {
+  @apply flex flex-col px-4 my-3;
 }
 
-
+/* Main */
+main {
+  @apply flex flex-col justify-center items-center sm:px-6 md:px-20;
+}
 
 /* Nav */
-.nav{
-    @apply p-6 flex justify-center md:justify-start;
+.nav {
+  @apply p-6 flex justify-center md:justify-start;
+  background: -webkit-linear-gradient(top, red, white); /* For Safari */
+  background: linear-gradient(to bottom, red, white); /* Standard syntax */
+}
+
+.directional-btn-container {
+  @apply w-full grid grid-cols-2 gap-1;
+}
+
+.directional-btn {
+  @apply bg-gray-400 px-5 py-3 flex justify-center items-center font-bold text-xl hover:bg-cyan-500 transition duration-150 shadow-md;
+}
+
+/* details-container */
+.details-container {
+  @apply grid md:grid-cols-2 gap-4 mt-6;
 }
 
 /* Search */
-.search{
-    @apply w-full grid grid-cols-5 rounded-3xl drop-shadow-md;
+.search {
+  @apply w-full grid grid-cols-5 rounded-3xl drop-shadow-md;
 }
 
-.search input{
-    @apply col-span-3 px-6 py-4 border border-gray-300 rounded-l-3xl focus:outline-none focus:ring-blue-500 focus:border-blue-500;
+.search input {
+  @apply col-span-3 px-6 py-4 focus:border rounded-l-3xl focus:outline-none focus:ring-blue-500 focus:border-blue-500;
 }
 
-.search select{
-    @apply col-span-2 bg-gray-50 border p-2 border-gray-300 text-gray-900 rounded-r-3xl focus:ring-blue-500 focus:border-blue-500 block w-full text-sm font-semibold;
-}
-
-
-
-
-
-
-/* Main */
-
-main{
-    @apply flex flex-col justify-center items-center sm:px-6 md:px-20;
+.search select {
+  @apply col-span-2 bg-gray-50 p-2 focus:border text-gray-900 rounded-r-3xl focus:ring-blue-500 focus:border-blue-500 block w-full text-sm font-semibold;
 }
 
 /* Container */
-/* .container{
-    @apply w-full sm:px-14 m-6 sm:m-10 flex items-center justify-center flex-col;
-} */
-.card-container{
-    @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4;
+.card-container {
+  @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4;
 }
-.load-more{
-    @apply bg-cyan-400 hover:bg-cyan-600 transition duration-150 px-6 py-4 rounded-lg text-white font-bold; 
+.load-more {
+  @apply bg-cyan-400 hover:bg-cyan-600 transition duration-150 px-6 py-4 rounded-lg text-white font-bold;
 }
-
-
 
 /* Card */
-.card{
-    @apply flex flex-col border border-gray-300 rounded-lg p-6;
+.card {
+  @apply relative border border-gray-300 rounded-lg shadow-lg;
 }
 
-.card p{
-    @apply text-gray-400 font-semibold;
+.card p {
+  @apply font-semibold;
 }
 
-.card h2{
-    @apply font-bold text-xl;
+.card h2 {
+  @apply font-bold text-xl;
 }
 
+.type-normal {
+  background-color: #a8a878;
+}
+
+.type-fire {
+  background-color: #f08030;
+  color: white;
+}
+
+.type-water {
+  background-color: #6890f0;
+  color: white;
+}
+
+.type-electric {
+  background-color: #f8d030;
+}
+
+.type-grass {
+  background-color: #78c850;
+}
+
+.type-ice {
+  background-color: #98d8d8;
+}
+
+.type-fighting {
+  background-color: #c03028;
+  color: white;
+}
+
+.type-poison {
+  background-color: #a040a0;
+  color: white;
+}
+
+.type-ground {
+  background-color: #e0c068;
+}
+
+.type-flying {
+  background-color: #a890f0;
+}
+
+.type-psychic {
+  background-color: #f85888;
+  color: white;
+}
+
+.type-bug {
+  background-color: #a8b820;
+  color: white;
+}
+
+.type-rock {
+  background-color: #b8a038;
+  color: white;
+}
+
+.type-ghost {
+  background-color: #705898;
+  color: white;
+}
+
+.type-dragon {
+  background-color: #7038f8;
+  color: white;
+}
+
+.type-dark {
+  background-color: #705848;
+  color: white;
+}
+
+.type-steel {
+  background-color: #b8b8d0;
+}
+
+.type-fairy {
+  background-color: #f0b6bc;
+}

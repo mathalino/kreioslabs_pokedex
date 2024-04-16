@@ -62,7 +62,7 @@
       });
     }
 
-    lastPage = Math.ceil(pokemons.length/perPage);
+    lastPage = Math.ceil(pokemons.length / perPage);
     filteredPokemons = pokemons.slice(0, filters.page * perPage);
   };
 
@@ -93,20 +93,24 @@
       <option value="desc">Z-A</option>
     </select>
   </div>
-  <span class="text-gray-400 text-xs mt-2"> Search for a Pokémon by name or Pokédex number. </span>
+  <span class="text-gray-400 text-xs mt-2">
+    Search for a Pokémon by name or Pokédex number.
+  </span>
 </div>
 <!-- searchbar end -->
 
 {#if loading}
   <p class="my-6">Loading all pokemons...</p>
 {:else}
+  <!-- card container -->
   <section class="card-container container">
     {#each filteredPokemons as pokemon}
-      <a href={`pokedex/${pokemon.species.name}`}>
+      <a href={`pokedex/${pokemon.species.name}`} class="relative">
         <Card {pokemon} />
       </a>
     {/each}
   </section>
+  <!-- card container end -->
 {/if}
 
 {#if filters.page < lastPage}
