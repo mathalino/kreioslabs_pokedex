@@ -60,7 +60,7 @@
   </div>
   <!-- title end -->
   <!-- details-container -->
-  <div class="container">
+  <div class="w-full">
     <div class="flex">
       <!-- image -->
       <img
@@ -71,7 +71,7 @@
       <!-- image end -->
 
       <div class="w-full">
-        <div class="flex justify-between w-full">
+        <div class="flex justify-between w-full px-2">
           <!-- types -->
           <div class="flex">
             {#each data.pokemonTypes as item}
@@ -122,7 +122,7 @@
       <!-- weakness title -->
       <PageTitle title='Weak Against' typeName={data.current.types[0].type.name}/>
       <!-- weakness title end -->
-      <div class="flex p-6">
+      <div class="flex flex-wrap p-6">
         {#each data.pokemonWeaknesses as item}
           <PokemonTypes pokemonType={item} />
         {/each}
