@@ -35,22 +35,30 @@
 </svelte:head>
 
 <div class="mt-5 w-full grid grid-cols-2 gap-1">
-  <a href="/pokedex/{data.previous.species.name}">
-    <div
-      class="bg-gray-400 rounded-l-2xl p-4 flex justify-center items-center font-bold text-2xl hover:bg-cyan-500 transition duration-150"
-    >
-      &lt;<PageId id={data.previous.id} />
-      <PageName name={data.previous.species.name} />
-    </div>
-  </a>
-  <a href="/pokedex/{data.next.species.name}">
-    <div
-      class="bg-gray-400 rounded-r-2xl p-4 flex justify-center items-center font-bold text-2xl hover:bg-cyan-500 transition duration-150"
-    >
-      <PageName name={data.next.species.name} />
-      <PageId id={data.next.id} /> &gt;
-    </div>
-  </a>
+  {#if data.previous}
+    <a href="/pokedex/{data.previous.species.name}">
+      <div
+        class="bg-gray-400 rounded-l-2xl p-4 flex justify-center items-center font-bold text-2xl hover:bg-cyan-500 transition duration-150"
+      >
+        &lt;<PageId id={data.previous.id} />
+        <PageName name={data.previous.species.name} />
+      </div>
+    </a>
+  {:else}
+    <div></div>
+  {/if}
+  {#if data.next}
+    <a href="/pokedex/{data.next.species.name}">
+      <div
+        class="bg-gray-400 rounded-r-2xl p-4 flex justify-center items-center font-bold text-2xl hover:bg-cyan-500 transition duration-150"
+      >
+        <PageName name={data.next.species.name} />
+        <PageId id={data.next.id} /> &gt;
+      </div>
+    </a>
+  {:else}
+    <div></div>
+  {/if}
 </div>
 <div class="container">
   <div class="flex justify-center">
