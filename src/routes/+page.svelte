@@ -1,8 +1,6 @@
 <script>
   import { onMount } from "svelte";
   import Card from "./Card.svelte";
-  import pokedex_logo from "$lib/images/pokedex-logo.png";
-
   let pokemonUrls = [];
 
   let allPokemons,
@@ -12,22 +10,26 @@
     sort: "id_asc",
     page: 1,
   };
-  
+
   let loading = true;
+  let lastPage = 0;
   const perPage = 8;
 
   onMount(async () => {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0");
+    const response = await fetch(
+      "https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0"
+    );
     const data = await response.json();
     pokemonUrls = data.results;
 
     fetchPokemons().then((result) => {
       allPokemons = result;
       filteredPokemons = result.slice(0, filters.page * perPage);
+      lastPage = Math.ceil(result.length / perPage);
       loading = false;
     });
   });
-  
+
   const fetchPokemons = async () => {
     const newPokemons = await Promise.all(
       pokemonUrls.map(async (pokemon) => {
@@ -38,7 +40,7 @@
     return newPokemons;
   };
 
-  const filtersChanged = () => {  
+  const filtersChanged = () => {
     let pokemons = allPokemons.filter(
       (p) =>
         p.species.name.indexOf(filters.s.toLowerCase()) >= 0 ||
@@ -60,48 +62,43 @@
       });
     }
 
+    lastPage = Math.ceil(pokemons.length/perPage);
     filteredPokemons = pokemons.slice(0, filters.page * perPage);
   };
 
-
-  const loadMore = () =>{
+  const loadMore = () => {
     filters.page++;
     filtersChanged();
-  }
+  };
 </script>
 
 <svelte:head>
-  <title>Pokédex | Home</title>
+  <title>Home | Pokédex</title>
   <meta name="description" content="Pokédex Demo App" />
 </svelte:head>
 
-<header>
-  <a href="/" onclick="window.location.reload();">
-    <img src={pokedex_logo} alt="Pokemon Logo" />
-  </a>
+<!-- searchbar -->
+<div class="container">
   <div class="search">
-    <div class="w-full grid grid-cols-4">
-      <input
-        type="text"
-        placeholder="Search..."
-        bind:value={filters.s}
-        on:keyup={() => filtersChanged()}
-      />
-      <div class="">
-        <select bind:value={filters.sort} on:change={() => filtersChanged()}>
-          <option value="id_asc">Lowest Number</option>
-          <option value="id_desc">Highest Number</option>
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
-        </select>
-      </div>
-    </div>
-    <span> Search for a Pokémon by name or Pokédex number. </span>
+    <input
+      type="text"
+      placeholder="Search..."
+      bind:value={filters.s}
+      on:keyup={() => filtersChanged()}
+    />
+    <select bind:value={filters.sort} on:change={() => filtersChanged()}>
+      <option value="id_asc">Lowest Number</option>
+      <option value="id_desc">Highest Number</option>
+      <option value="asc">A-Z</option>
+      <option value="desc">Z-A</option>
+    </select>
   </div>
-</header>
+  <span class="text-gray-400 text-xs mt-2"> Search for a Pokémon by name or Pokédex number. </span>
+</div>
+<!-- searchbar end -->
 
 {#if loading}
-  <p class="mb-6">Loading all pokemons...</p>
+  <p class="my-6">Loading all pokemons...</p>
 {:else}
   <section class="card-container container">
     {#each filteredPokemons as pokemon}
@@ -112,6 +109,6 @@
   </section>
 {/if}
 
-{#if !loading}
-<button class="load-more" on:click={loadMore}>Load more Pokémon</button>
+{#if filters.page < lastPage}
+  <button class="load-more" on:click={loadMore}>Load more Pokémon</button>
 {/if}
