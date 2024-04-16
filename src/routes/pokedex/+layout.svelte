@@ -3,6 +3,6 @@
 </script>
 
 <a href="/">
-  <img class="w-52" src={pokemon_logo} alt="Pokemon Logo" />
+  <img class="w-72" src={pokemon_logo} alt="Pokemon Logo" />
 </a>
 <slot />

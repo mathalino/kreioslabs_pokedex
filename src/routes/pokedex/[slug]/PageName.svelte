@@ -4,4 +4,4 @@
     export let name;
 </script>
 
-<span>{capitalizeFirstLetter(name)}</span>
+<span class="hidden md:block">{capitalizeFirstLetter(name)}</span>

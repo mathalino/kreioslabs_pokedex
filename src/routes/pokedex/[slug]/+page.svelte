@@ -34,6 +34,7 @@
   <title>{capitalizeFirstLetter(data.current.species.name)} | Pokédex</title>
 </svelte:head>
 
+<!-- navigation -->
 <div class="mt-5 w-full grid grid-cols-2 gap-1">
   {#if data.previous}
     <a href="/pokedex/{data.previous.species.name}">
@@ -60,7 +61,9 @@
     <div></div>
   {/if}
 </div>
+<!-- navigation end -->
 <div class="container">
+  <!-- title -->
   <div class="flex justify-center">
     <h1 class="text-4xl font-bold">
       {capitalizeFirstLetter(data.current.species.name)}
@@ -69,15 +72,29 @@
       </span>
     </h1>
   </div>
-  <div class="grid md:grid-cols-2 mt-6" style="max-width: 1024px;">
+  <!-- title end -->
+  <div class="grid md:grid-cols-2 gap-4 mt-6" style="max-width: 1024px;">
     <div>
+      <!-- image -->
       <img
         class="w-full"
         src={data.current.sprites.front_default}
         alt="{data.current.species.name} photo"
       />
+      <!-- image end -->
+      <!-- stats -->
+      <div class="bg-cyan-400 p-4 my-4 rounded-md text-center sm:text-start">
+        <h3 class="text-2xl font-bold">Stats</h3>
+        {#each data.current.stats as stat}
+          <p>
+            {capitalizeFirstLetter(stat.stat.name)}: {stat.base_stat}
+          </p>
+        {/each}
+      </div>
+      <!-- stats end -->
     </div>
     <div class="">
+      <!-- abilities, height, weight -->
       <div
         class="flex flex-col bg-cyan-400 mb-4 p-6 h-fit w-full rounded-lg shadow-lg"
       >
@@ -89,7 +106,9 @@
           <DisplayData label="Abilities" data={data.current.abilities} />
         </div>
       </div>
+      <!-- abilities, height, weight end -->
 
+      <!-- types -->
       <div class="mb-4">
         <h3 class="text-2xl font-bold">Type</h3>
         <div class="flex">
@@ -98,6 +117,8 @@
           {/each}
         </div>
       </div>
+      <!-- types end -->
+      <!-- weakness -->
       <div class="mb-4">
         <h3 class="text-2xl font-bold">Weaknesses</h3>
         <div class="flex flex-wrap">
@@ -106,6 +127,7 @@
           {/each}
         </div>
       </div>
+      <!-- weakness end -->
     </div>
   </div>
 </div>
