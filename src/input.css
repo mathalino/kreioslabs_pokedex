@@ -24,7 +24,7 @@ main {
 }
 
 .directional-btn {
-  @apply bg-gray-400 px-5 py-3 flex justify-center items-center font-bold text-xl hover:bg-cyan-500 transition duration-150 shadow-md;
+  @apply bg-gray-400 px-5 py-3 flex justify-center items-center font-bold text-xl hover:bg-cyan-500 transition duration-150 shadow;
 }
 
 /* details-container */
@@ -56,7 +56,7 @@ main {
   @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4;
 }
 .load-more {
-  @apply bg-cyan-400 hover:bg-cyan-600 transition duration-150 px-6 py-4 rounded-lg text-white font-bold;
+  @apply bg-cyan-400 hover:bg-cyan-600 transition duration-150 px-6 py-4 rounded-2xl text-white font-bold;
 }
 
 /* Card */

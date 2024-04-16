@@ -28,7 +28,7 @@
   <div class="directional-btn-container">
     {#if data.previous}
       <a href="/pokedex/{data.previous.species.name}">
-        <div class="directional-btn rounded-l-2xl">
+        <div class="directional-btn rounded-tl-2xl">
           &lt;<PageId id={data.previous.id} />
           <PageName name={data.previous.species.name} />
         </div>
@@ -38,7 +38,7 @@
     {/if}
     {#if data.next}
       <a href="/pokedex/{data.next.species.name}">
-        <div class="directional-btn rounded-r-2xl">
+        <div class="directional-btn rounded-tr-2xl">
           <PageName name={data.next.species.name} />
           <PageId id={data.next.id} /> &gt;
         </div>
