@@ -16,11 +16,11 @@ header a{
 }
 
 header .search{
-    @apply flex items-center mt-4 sm:mt-0;
+    @apply flex flex-col mt-4 sm:mt-0;
 }
 
 .search input{
-    @apply w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring focus:border-blue-300;
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300;
 }
 
 .search button{

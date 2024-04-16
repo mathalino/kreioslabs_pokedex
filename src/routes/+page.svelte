@@ -2,56 +2,54 @@
   import { onMount } from "svelte";
   import Card from "./Card.svelte";
   import Header from "./Header.svelte";
+  import pokemon_logo from "$lib/images/pokemon-logo.png";
+
+  let pokemonUrls = [];
 
   let pokemonData = [];
   let morePokemons = "";
   let isLoading = false;
   let hasLoadMoreButton = true;
 
-  // Fetch Pokémon data when the component is mounted
+  let pokemons = [];
+  let allPokemons,
+    filteredPokemons = [];
+  let filters = {
+    s: "",
+  };
+
   onMount(async () => {
-    fetchPokemons("https://pokeapi.co/api/v2/pokemon");
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon");
+    const data = await response.json();
+    pokemonUrls = data.results;
+    console.log(pokemonUrls);
+
+    fetchPokemons().then((result) => {
+      allPokemons = result;
+      filteredPokemons = result;
+    });
   });
+  const fetchPokemons = async () => {
+    const newPokemons = await Promise.all(
+      pokemonUrls.map(async (pokemon) => {
+        const response = await fetch(pokemon.url);
+        return response.json();
+      })
+    );
+    return newPokemons;
+  };
 
-  // Function to fetch Pokémon data
-  async function fetchPokemons(url) {
-    isLoading = true;
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      pokemonData = [...pokemonData, ...data.results];
-      morePokemons = data.next;
-    } catch (error) {
-      console.error("Error fetching Pokémon data:", error);
-    } finally {
-      isLoading = false;
-    }
+    const filtersChanged = () => {
+      let pokemons = allPokemons.filter(p => p.species.name.indexOf(filters.s.toLowerCase()) >= 0 || p.id.toString().indexOf(filters.s) >= 0);
+
+      filteredPokemons = pokemons;
   }
 
-  // Function to load more Pokémon
-  function loadMore() {
-    if (morePokemons && !isLoading) {
-      fetchPokemons(morePokemons);
-    }
+  const search = s =>{
+    filters.s = s;
+    filtersChanged();
   }
 
-  // Function to handle search event from Header component
-  async function handleSearch(event) {
-    const searchQuery = event.detail.toLowerCase();
-    if (searchQuery) {
-      hasLoadMoreButton = false;
-      pokemonData = [
-        {
-          name: searchQuery,
-          url: `https://pokeapi.co/api/v2/pokemon/${searchQuery}`,
-        },
-      ];
-    } else {
-      hasLoadMoreButton = true;
-      pokemonData = [];
-      fetchPokemons("https://pokeapi.co/api/v2/pokemon");
-    }
-  }
 </script>
 
 <svelte:head>
@@ -59,14 +57,28 @@
   <meta name="description" content="Pokédex Demo App" />
 </svelte:head>
 
-<Header on:search={handleSearch} />
+<header>
+  <a href="/" onclick="window.location.reload();">
+    <img src={pokemon_logo} alt="Pokemon Logo" />
+  </a>
+  <div class="search">
+    <input
+      type="text"
+      placeholder="Search..."
+      on:keyup={(e) => search(e.target.value)}
+    />
+    <span> Search for a Pokémon by name or Pokédex number. </span>
+  </div>
+</header>
+
 <section class="card-container container">
-  {#each pokemonData as pokemon}
-    <a href={`pokedex/${pokemon.name}`}>
+  {#each filteredPokemons as pokemon}
+    <!-- <a href={`pokedex/${pokemon.name}`}> -->
       <Card {pokemon} />
-    </a>
+    <!-- </a> -->
   {/each}
 </section>
-{#if hasLoadMoreButton}
+
+<!-- {#if hasLoadMoreButton}
   <button class="load-more" on:click={loadMore}> Load more Pokémon </button>
-{/if}
+{/if} -->

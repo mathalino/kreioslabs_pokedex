@@ -29,6 +29,10 @@
   $: console.log(pokemonTypes);
 </script>
 
+<svelte:head>
+  <title>{capitalizeFirstLetter(data.item.species.name)} | Pokédex</title>
+</svelte:head>
+
 <div class="container">
   <div class="flex justify-center">
     <h1 class="text-4xl font-bold">
@@ -38,7 +42,7 @@
       </span>
     </h1>
   </div>
-  <div class="grid sm:grid-cols-2 mt-6" style="max-width: 1024px;">
+  <div class="grid md:grid-cols-2 mt-6" style="max-width: 1024px;">
     <div>
       <img
         class="w-full"
@@ -48,11 +52,16 @@
     </div>
     <div class="">
       <div
-        class="bg-cyan-400 mb-4 p-6 h-fit w-full grid sm:grid-cols-2 gap-2 text-center sm:text-start rounded-lg shadow-lg"
+        class="flex flex-col bg-cyan-400 mb-4 p-6 h-fit w-full rounded-lg shadow-lg"
       >
-        <DisplayData label="Height" data={data.item.height + "'"} />
-        <DisplayData label="Weight" data={data.item.weight + " lbs"} />
-        <DisplayData label="Abilities" data={data.item.abilities} />
+        <div class=" grid md:grid-cols-2 gap-2 text-center md:text-start">
+          <DisplayData label="Height" data={data.item.height + "'"} />
+          <DisplayData label="Weight" data={data.item.weight + " lbs"} />
+        </div>
+        <div class="text-center md:text-start mt-3">
+          <DisplayData label="Abilities" data={data.item.abilities} />
+        </div>
+        
       </div>
 
       <div class="mb-4">
