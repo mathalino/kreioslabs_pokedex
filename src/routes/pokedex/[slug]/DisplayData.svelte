@@ -7,7 +7,7 @@
   } from "../../../lib/js/reusables";
 </script>
 
-<div class="grid grid-cols-2 text-sm sm:text-xl">
+<div class="flex gap-4 text-sm sm:text-xl">
   <span class="font-bold">{label}:</span>
   <p class="">
     {#if typeof data === "string"}
