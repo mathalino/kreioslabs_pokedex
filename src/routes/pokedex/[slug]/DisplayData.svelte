@@ -3,14 +3,13 @@
   export let data;
 
   import {
-    capitalizeFirstLetter,
-    formatPokemonId,
+    capitalizeFirstLetter
   } from "../../../lib/js/reusables";
 </script>
 
-<div>
-  <span class="font-semibold text-white">{label}</span>
-  <p class="font-bold text-xl">
+<div class="font-bold">
+  <span class="text-xl text-white">{label}</span>
+  <p class="text-2xl">
     {#if typeof data === "string"}
       {data}
     {:else}

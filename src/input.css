@@ -39,7 +39,7 @@ main{
 
 /* Container */
 .container{
-    @apply w-full sm:px-14 m-6 sm:m-10;
+    @apply w-full sm:px-14 m-6 sm:m-10 flex items-center justify-center flex-col;
 }
 .card-container{
     @apply grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
