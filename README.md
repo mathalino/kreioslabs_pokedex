@@ -1,7 +1,7 @@
 # Pokedéx using Pokémon API
 This project represents a simple yet functional web application that utilizes the [`Pokémon API `](https://pokeapi.co/) and Tailwind CSS. Developed as part of the assessment for the KreiosLabs Internship Program, this project aims to demonstrate practical skills in web development and API integration.
 
-The application leverages the Pokémon API to fetch and display information about various Pokémon species. By utilizing Tailwind CSS, the project ensures a responsive user interface.
+The application leverages the Pokémon API to fetch and display information about the first 500 Pokémons. By utilizing Tailwind CSS, the project ensures a responsive user interface.
 
 
 ## Getting Started
@@ -36,7 +36,7 @@ npm install
 npm run dev
 ```
 
-2. Open another terminal and run the Tailwind CSS watcher
+2. Open another terminal and run the Tailwind CSS watcher (optional)
 
 ```bash
 npm run tailwind
