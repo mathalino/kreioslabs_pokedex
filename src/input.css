@@ -7,14 +7,18 @@
   @apply flex flex-col px-1 sm:px-4 my-3;
 }
 
+body{
+  @apply bg-slate-100 relative;
+}
+
 /* Main */
 main {
-  @apply flex flex-col justify-center items-center sm:px-6 md:px-20;
+  @apply flex flex-col justify-center items-center px-3 sm:px-6 md:px-20;
 }
 
 /* Nav */
 .nav {
-  @apply p-6 flex justify-center md:justify-start;
+  @apply grid md:grid-cols-6 w-full gap-4;
   /* background: -webkit-linear-gradient(top, red, white);
   background: linear-gradient(to bottom, red, white);  */
 }
@@ -61,7 +65,7 @@ main {
 
 /* Card */
 .card {
-  @apply relative border border-gray-300 rounded-lg shadow-lg ;
+  @apply relative border border-gray-300 rounded-lg;
 }
 
 .card img:hover{

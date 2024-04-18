@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import pokedex_logo from "$lib/images/pokedex-logo.png";
   import Card from "./Card.svelte";
   let pokemonUrls = [];
 
@@ -14,6 +15,10 @@
   let loading = true;
   let lastPage = 0;
   const perPage = 24;
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   onMount(async () => {
     const response = await fetch(
@@ -41,7 +46,7 @@
   };
 
   const filtersChanged = () => {
-  console.log("Filters changed...");
+    console.log("Filters changed...");
     let pokemons = allPokemons.filter(
       (p) =>
         p.species.name.indexOf(filters.s.toLowerCase()) >= 0 ||
@@ -78,27 +83,39 @@
   <meta name="description" content="Pokédex Demo App" />
 </svelte:head>
 
-<!-- searchbar -->
-<div class="container">
-  <div class="search">
-    <input
-      type="text"
-      placeholder="Search..."
-      bind:value={filters.s}
-      on:keyup={() => filtersChanged()}
-    />
-    <select bind:value={filters.sort} on:change={() => filtersChanged()}>
-      <option value="id_asc">Lowest Number</option>
-      <option value="id_desc">Highest Number</option>
-      <option value="asc">A-Z</option>
-      <option value="desc">Z-A</option>
-    </select>
+<!-- Navigation -->
+<nav class="nav mt-8">
+  <div class="w-full flex justify-center md:justify-start md:col-span-2">
+    <div class="w-fit">
+      <a href="/">
+        <img class="w-52" src={pokedex_logo} alt="Pokedex Logo" />
+      </a>
+    </div>
   </div>
-  <span class="text-gray-400 text-xs mt-2">
-    Search for a Pokémon by name or Pokédex number.
-  </span>
-</div>
-<!-- searchbar end -->
+
+  <!-- searchbar -->
+  <div class="container md:col-span-4">
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Search..."
+        bind:value={filters.s}
+        on:keyup={() => filtersChanged()}
+      />
+      <select bind:value={filters.sort} on:change={() => filtersChanged()}>
+        <option value="id_asc">Lowest Number</option>
+        <option value="id_desc">Highest Number</option>
+        <option value="asc">A-Z</option>
+        <option value="desc">Z-A</option>
+      </select>
+    </div>
+    <span class="text-gray-400 text-xs mt-2">
+      Search for a Pokémon by name or Pokédex number.
+    </span>
+  </div>
+  <!-- searchbar end -->
+</nav>
+<!-- Navigation end -->
 
 {#if loading}
   <p class="my-6">Loading all pokemons...</p>
@@ -117,3 +134,10 @@
 {#if filters.page < lastPage}
   <button class="load-more" on:click={loadMore}>Load more Pokémon</button>
 {/if}
+
+<button
+  class="fixed bottom-5 right-5 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow transition delay-75"
+  on:click={scrollToTop}
+>
+  <i class="ri-arrow-up-fill"></i>
+</button>
