@@ -9,16 +9,6 @@
 </script>
 
 {#if pokemon}
-  <!-- <div
-    class="card"
-    style="background: {pokemon.types.length > 1
-      ? 'linear-gradient(90deg, ' +
-        typeColors[pokemon.types[0].type.name] +
-        ' 50%, ' +
-        typeColors[pokemon.types[1].type.name] +
-        ' 50%)'
-      : typeColors[pokemon.types[0].type.name]}"
-  > -->
   <div class="card">
     <div class="w-44 h-44 relative">
       <span class="absolute top-2 right-2 text-sm font-semibold"

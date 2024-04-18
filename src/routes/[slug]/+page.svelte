@@ -13,17 +13,16 @@
   import DisplayStat from "./DisplayStat.svelte";
   import TypeEffectiveness from "./TypeEffectiveness.svelte";
 
-  
   function getEnglishFlavorText(pokemonSpecies) {
     for (let entry of pokemonSpecies.flavor_text_entries) {
       if (entry.language.name === "en") {
         let flavor = entry.flavor_text
-            .replace("\f", "\n")
-            .replace("\u00ad\n", "")
-            .replace("\u00ad", "")
-            .replace(" -\n", " - ")
-            .replace("-\n", "-")
-            .replace("\n", " ");
+          .replace("\f", "\n")
+          .replace("\u00ad\n", "")
+          .replace("\u00ad", "")
+          .replace(" -\n", " - ")
+          .replace("-\n", "-")
+          .replace("\n", " ");
         return flavor;
       }
     }
@@ -35,7 +34,7 @@
   <title>{capitalizeFirstLetter(data.current.species.name)} | Pokédex</title>
 </svelte:head>
 <div
-  class="details-wrapper w-screen h-screen flex flex-col items-center relative"
+  class="details-wrapper"
   style="background: {data.current.types.length > 1
     ? 'linear-gradient(90deg, ' +
       typeColors[data.current.types[0].type.name] +
@@ -44,7 +43,7 @@
       ' 50%)'
     : typeColors[data.current.types[0].type.name]}"
 >
-  <div class="details-header my-8 flex text-white gap-4">
+  <div class="details-header">
     <h3 class="font-bold text-3xl">
       {capitalizeFirstLetter(data.current.species.name)}
     </h3>
@@ -52,7 +51,7 @@
       <i class="ri-hashtag"></i>{formatPokemonId(data.current.id)}
     </h6>
   </div>
-  <div class="details-img z-20">
+  <div class="z-20">
     <!-- image -->
     <img
       class="w-52 h-52"
@@ -61,12 +60,9 @@
     />
     <!-- image end -->
   </div>
-  <div
-    class="details-content bg-white overflow-auto p-4 z-10 rounded-2xl shadow-xl gap-3"
-    style="min-width: 320px; max-width: 500px; margin-top:-40px;"
-  >
+  <div class="details-content">
     <!-- type -->
-    <div class="details-type flex justify-center mt-10">
+    <div class="details-type ">
       {#each data.pokemonTypes as item}
         <PokemonTypes pokemonType={item} />
       {/each}
@@ -85,7 +81,7 @@
         </span>
       </div>
       <!-- abilities, height, weight -->
-      <div class="grid grid-cols-2 my-2 gap-2">
+      <div class="details-about">
         <DisplayData label="Height" data={data.current.height / 10 + " m"} />
         <DisplayData label="Weight" data={data.current.weight / 10 + " kg"} />
         <DisplayData label="Abilities" data={data.current.abilities} />
@@ -98,7 +94,7 @@
       color={typeColors[data.current.types[0].type.name]}
       title="Stats"
     />
-    <div class="details-stats px-3">
+    <div class="px-3">
       {#each data.current.stats as stat}
         <DisplayStat
           color={typeColors[data.current.types[0].type.name]}
@@ -112,9 +108,18 @@
       title="Type Effectiveness"
     />
     <div class="px-3">
-      <TypeEffectiveness pokemonTypes={data.pokemonWeaknesses} title="Weak against (2x)"/>
-      <TypeEffectiveness pokemonTypes={data.pokemonDoubleDamage} title="Strong against (2x)"/>
-      <TypeEffectiveness pokemonTypes={data.pokemonImmunities} title="Immune against"/>
+      <TypeEffectiveness
+        pokemonTypes={data.pokemonWeaknesses}
+        title="Weak against (2x)"
+      />
+      <TypeEffectiveness
+        pokemonTypes={data.pokemonDoubleDamage}
+        title="Strong against (2x)"
+      />
+      <TypeEffectiveness
+        pokemonTypes={data.pokemonImmunities}
+        title="Immune against"
+      />
     </div>
   </div>
 
