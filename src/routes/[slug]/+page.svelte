@@ -51,7 +51,12 @@
       <i class="ri-hashtag"></i>{formatPokemonId(data.current.id)}
     </h6>
   </div>
-  <div class="z-20">
+  <div class="z-20 flex items-center sm:gap-10">
+    {#if data.previous}
+      <a href="/{data.previous.species.name}" class="kl-btn">
+          <i class="ri-arrow-left-line"></i>
+      </a>
+    {/if}
     <!-- image -->
     <img
       class="w-52 h-52"
@@ -59,6 +64,11 @@
       alt="{data.current.species.name} photo"
     />
     <!-- image end -->
+    {#if data.next}
+      <a href="/{data.next.species.name}" class="kl-btn">
+          <i class="ri-arrow-right-line"></i>
+      </a>
+    {/if}
   </div>
   <div class="details-content">
     <!-- type -->

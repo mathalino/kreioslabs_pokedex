@@ -46,7 +46,7 @@ body {
 }
 
 .details-type{
-  @apply flex justify-center mt-10;
+  @apply flex justify-center mt-10 gap-3;
 }
 
 .details-about{
@@ -91,11 +91,11 @@ body {
 }
 
 .kl-btn {
-  @apply bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow transition delay-75;
+  @apply bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow transition delay-75 font-bold;
 }
 
 .go-home {
-  @apply kl-btn absolute top-5 left-5 px-6 py-2 rounded-3xl z-40;
+  @apply kl-btn absolute top-1 left-1 sm:top-5 sm:left-5 px-6 py-2 rounded-3xl z-40;
 }
 
 .type-normal {
