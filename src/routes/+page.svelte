@@ -2,48 +2,75 @@
   import { onMount } from "svelte";
   import pokedex_logo from "$lib/images/pokedex-logo.png";
   import Card from "./Card.svelte";
-  let pokemonUrls = [];
 
-  let allPokemons,
-    filteredPokemons = [];
+  let pokemonUrls = [];
+  let allPokemons = [];
+  let filteredPokemons = [];
+  let loading = true;
+  let selectLoading = true;
+  let lastPage = 0;
+  const perPage = 24;
+
   let filters = {
     s: "",
     sort: "id_asc",
     page: 1,
   };
 
-  let loading = true;
-  let lastPage = 0;
-  const perPage = 24;
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  onMount(async () => {
-    const response = await fetch(
-      "https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0"
-    );
-    const data = await response.json();
-    pokemonUrls = data.results;
-
-    fetchPokemons().then((result) => {
-      allPokemons = result;
-      filteredPokemons = result.slice(0, filters.page * perPage);
-      lastPage = Math.ceil(result.length / perPage);
-      loading = false;
-    });
-  });
-
-  const fetchPokemons = async () => {
-    const newPokemons = await Promise.all(
-      pokemonUrls.map(async (pokemon) => {
+  const fetchPokemonData = async (urls) => {
+    return await Promise.all(
+      urls.map(async (pokemon) => {
         const response = await fetch(pokemon.url);
         return response.json();
       })
     );
-    return newPokemons;
   };
+
+  const fetchPokemonImages = async (pokemonData) => {
+    return await Promise.all(
+      pokemonData.map(async (data) => {
+        const imageResponse = await fetch(
+          data.sprites.other.dream_world.front_default
+        );
+        const imageBlob = await imageResponse.blob();
+        const imageUrl = URL.createObjectURL(imageBlob);
+        data.image = imageUrl;
+        return data;
+      })
+    );
+  };
+
+  const fetchData = async (url, delay) => {
+    await new Promise((resolve) => setTimeout(resolve, delay)); // Introduce delay here
+    const response = await fetch(url);
+    const data = await response.json();
+    pokemonUrls = data.results;
+
+    await fetchPokemonData(pokemonUrls)
+      .then(fetchPokemonImages)
+      .then((result) => {
+        allPokemons = result;
+        filteredPokemons = allPokemons.slice(0, filters.page * perPage);
+        lastPage = Math.ceil(result.length / perPage);
+        loading = false;
+      });
+  };
+
+  onMount(async () => {
+    await fetchData(
+      `https://pokeapi.co/api/v2/pokemon?limit=${perPage}&offset=0`,
+      0
+    ); // No delay for the initial fetch
+    await fetchData(
+      "https://pokeapi.co/api/v2/pokemon?limit=500&offset=0",
+      100
+    ); // Delay for subsequent fetch
+    selectLoading = false;
+  });
 
   const filtersChanged = () => {
     let pokemons = allPokemons.filter(
@@ -102,12 +129,16 @@
           bind:value={filters.s}
           on:keyup={() => filtersChanged()}
         />
-        <select bind:value={filters.sort} on:change={() => filtersChanged()}>
-          <option value="id_asc">Lowest Number</option>
-          <option value="id_desc">Highest Number</option>
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
-        </select>
+        {#if !selectLoading}
+          <select bind:value={filters.sort} on:change={() => filtersChanged()}>
+            <option value="id_asc">Lowest Number</option>
+            <option value="id_desc">Highest Number</option>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
+          </select>
+        {:else}
+          <div class="loader w-full h-full rounded-r-3xl"></div>
+        {/if}
       </div>
       <span class="text-gray-400 text-xs mt-2">
         Search for a Pokémon by name or Pokédex number.
@@ -123,7 +154,7 @@
     <!-- card container -->
     <section class="card-container">
       {#each filteredPokemons as pokemon}
-        <a data-sveltekit-preload-code href={pokemon.species.name}>
+        <a href={pokemon.species.name}>
           <Card {pokemon} />
         </a>
       {/each}
@@ -139,3 +170,16 @@
     <i class="ri-arrow-up-fill"></i>
   </button>
 </div>
+
+<style>
+  .loader {
+    background: linear-gradient(90deg, #0001 33%, #0005 50%, #0001 66%) #f2f2f2;
+    background-size: 300% 100%;
+    animation: l1 1s infinite linear;
+  }
+  @keyframes l1 {
+    0% {
+      background-position: right;
+    }
+  }
+</style>
