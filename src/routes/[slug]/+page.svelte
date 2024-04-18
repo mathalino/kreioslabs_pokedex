@@ -56,7 +56,7 @@
   </div>
   <div class="z-20 flex items-center sm:gap-10">
     {#if data.previous}
-      <a href="/{data.previous.species.name}" class="kl-btn">
+      <a data-sveltekit-preload-data href="/{data.previous.species.name}" class="kl-btn">
           <i class="ri-arrow-left-line"></i>
       </a>
     {/if}
@@ -68,7 +68,7 @@
     />
     <!-- image end -->
     {#if data.next}
-      <a href="/{data.next.species.name}" class="kl-btn">
+      <a data-sveltekit-preload-data href="/{data.next.species.name}" class="kl-btn">
           <i class="ri-arrow-right-line"></i>
       </a>
     {/if}
@@ -136,9 +136,4 @@
     </div>
   </div>
 
-  <div>
-    <a href="/" class="go-home">
-      <i class="ri-home-4-fill"></i>
-    </a>
-  </div>
 </div>

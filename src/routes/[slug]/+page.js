@@ -56,7 +56,7 @@ export async function load({ fetch, params }) {
     );
   }
 
-  await fetchPokemonTypes();
+  
 
   let current_id = current_data.id;
 
@@ -72,16 +72,22 @@ export async function load({ fetch, params }) {
   let next_data = null;
   let next_id = current_id + 1;
   // Check if the next Pokémon ID exceeds the maximum ID
-  if (next_id <= 1025) {
+  while (next_id <= 1025 && !next_data) {
     const next_res = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${next_id}`
     );
     // Check if the next Pokémon exists
     if (next_res.ok) {
       next_data = await next_res.json();
+    } else {
+      // If the next Pokémon doesn't exist, increment the ID and try again
+      next_id++;
     }
   }
+  
 
+  await fetchPokemonTypes();
+  
   return {
     current: { ...current_data, pokemonImg: currentImgUrl },
     previous: previous_data,
