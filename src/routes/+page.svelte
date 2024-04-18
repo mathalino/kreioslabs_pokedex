@@ -13,7 +13,7 @@
 
   let loading = true;
   let lastPage = 0;
-  const perPage = 8;
+  const perPage = 20;
 
   onMount(async () => {
     const response = await fetch(
