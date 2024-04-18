@@ -1,6 +1,5 @@
 <script>
   export let data;
-  import pokedex_logo from "$lib/images/pokedex-logo.png";
 
   import {
     capitalizeFirstLetter,
@@ -10,12 +9,26 @@
 
   import DisplayData from "./DisplayData.svelte";
   import PokemonTypes from "./PokemonTypes.svelte";
-  import PageId from "./PageId.svelte";
-  import PageName from "./PageName.svelte";
   import PageTitle from "./PageTitle.svelte";
   import DisplayStat from "./DisplayStat.svelte";
+  import TypeEffectiveness from "./TypeEffectiveness.svelte";
 
-  console.log(data.current);
+  
+  function getEnglishFlavorText(pokemonSpecies) {
+    for (let entry of pokemonSpecies.flavor_text_entries) {
+      if (entry.language.name === "en") {
+        let flavor = entry.flavor_text
+            .replace("\f", "\n")
+            .replace("\u00ad\n", "")
+            .replace("\u00ad", "")
+            .replace(" -\n", " - ")
+            .replace("-\n", "-")
+            .replace("\n", " ");
+        return flavor;
+      }
+    }
+    return "";
+  }
 </script>
 
 <svelte:head>
@@ -60,22 +73,19 @@
     </div>
     <!-- type end -->
 
-    <PageTitle color={typeColors[data.current.types[0].type.name]} title="About"/>
-    
+    <PageTitle
+      color={typeColors[data.current.types[0].type.name]}
+      title="About"
+    />
+
     <div class="px-3">
       <div class="text-center">
         <span class="text-sm">
-          {data.pokemonSpecies.flavor_text_entries[0].flavor_text
-            .replace("\f", "\n")
-            .replace("\u00ad\n", "")
-            .replace("\u00ad", "")
-            .replace(" -\n", " - ")
-            .replace("-\n", "-")
-            .replace("\n", " ")}
+          {getEnglishFlavorText(data.pokemonSpecies)}
         </span>
       </div>
       <!-- abilities, height, weight -->
-      <div class="grid grid-cols-2 my-2">
+      <div class="grid grid-cols-2 my-2 gap-2">
         <DisplayData label="Height" data={data.current.height / 10 + " m"} />
         <DisplayData label="Weight" data={data.current.weight / 10 + " kg"} />
         <DisplayData label="Abilities" data={data.current.abilities} />
@@ -84,38 +94,32 @@
       <!-- abilities, height, weight end -->
     </div>
 
-    <PageTitle color={typeColors[data.current.types[0].type.name]} title="Stats"/>
-      <div class="details-stats px-3 ">
-        {#each data.current.stats as stat}
-          <DisplayStat color={typeColors[data.current.types[0].type.name]} title={stat.stat.name}  value={stat.base_stat}/>  
-        {/each}
-        
-      </div>
-    <PageTitle color={typeColors[data.current.types[0].type.name]} title="Type Effectiveness"/>
+    <PageTitle
+      color={typeColors[data.current.types[0].type.name]}
+      title="Stats"
+    />
+    <div class="details-stats px-3">
+      {#each data.current.stats as stat}
+        <DisplayStat
+          color={typeColors[data.current.types[0].type.name]}
+          title={stat.stat.name}
+          value={stat.base_stat}
+        />
+      {/each}
+    </div>
+    <PageTitle
+      color={typeColors[data.current.types[0].type.name]}
+      title="Type Effectiveness"
+    />
     <div class="px-3">
-        <div class="w-fit flex  gap-1 items-center">
-          <h3 class="text-sm font-bold">Weak against (2x):</h3>
-        {#each data.pokemonWeaknesses as item}
-          <PokemonTypes pokemonType={item} />
-        {/each}
-      </div>
-        <div class="w-fit flex  gap-1">
-          <h3 class="text-sm font-bold">Immune against:</h3>
-        {#each data.pokemonImmunities as item}
-          <PokemonTypes pokemonType={item} />
-        {/each}
-      </div>
-        <div class="w-fit flex  gap-1">
-          <h3 class="text-sm font-bold">Strong against (2x):</h3>
-        {#each data.pokemonDoubleDamage as item}
-          <PokemonTypes pokemonType={item} />
-        {/each}
-      </div>
+      <TypeEffectiveness pokemonTypes={data.pokemonWeaknesses} title="Weak against (2x)"/>
+      <TypeEffectiveness pokemonTypes={data.pokemonDoubleDamage} title="Strong against (2x)"/>
+      <TypeEffectiveness pokemonTypes={data.pokemonImmunities} title="Immune against"/>
     </div>
   </div>
 
-  <div class="go-home absolute top-5 left-5">
-    <a href="/" class="bg-cyan-200 px-6 py-2 rounded-3xl z-40">
+  <div>
+    <a href="/" class="go-home">
       <i class="ri-home-4-fill"></i>
     </a>
   </div>

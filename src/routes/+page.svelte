@@ -84,65 +84,59 @@
 </svelte:head>
 
 <div class="homepage">
-
-  
-<!-- Navigation -->
-<nav class="nav mt-8">
-  <div class="w-full flex justify-center md:justify-start md:col-span-2">
-    <div class="w-fit">
-      <a href="/">
-        <img class="w-52" src={pokedex_logo} alt="Pokedex Logo" />
-      </a>
+  <!-- Navigation -->
+  <nav class="nav mt-8">
+    <div class="w-full flex justify-center md:justify-start md:col-span-2">
+      <div class="w-fit">
+        <a href="/">
+          <img class="w-52" src={pokedex_logo} alt="Pokedex Logo" />
+        </a>
+      </div>
     </div>
-  </div>
 
-  <!-- searchbar -->
-  <div class="container md:col-span-4">
-    <div class="search">
-      <input
-        type="text"
-        placeholder="Search..."
-        bind:value={filters.s}
-        on:keyup={() => filtersChanged()}
-      />
-      <select bind:value={filters.sort} on:change={() => filtersChanged()}>
-        <option value="id_asc">Lowest Number</option>
-        <option value="id_desc">Highest Number</option>
-        <option value="asc">A-Z</option>
-        <option value="desc">Z-A</option>
-      </select>
+    <!-- searchbar -->
+    <div class="container md:col-span-4">
+      <div class="search">
+        <input
+          type="text"
+          placeholder="Search..."
+          bind:value={filters.s}
+          on:keyup={() => filtersChanged()}
+        />
+        <select bind:value={filters.sort} on:change={() => filtersChanged()}>
+          <option value="id_asc">Lowest Number</option>
+          <option value="id_desc">Highest Number</option>
+          <option value="asc">A-Z</option>
+          <option value="desc">Z-A</option>
+        </select>
+      </div>
+      <span class="text-gray-400 text-xs mt-2">
+        Search for a Pokémon by name or Pokédex number.
+      </span>
     </div>
-    <span class="text-gray-400 text-xs mt-2">
-      Search for a Pokémon by name or Pokédex number. 
-    </span>
-  </div>
-  <!-- searchbar end -->
-</nav>
-<!-- Navigation end -->
+    <!-- searchbar end -->
+  </nav>
+  <!-- Navigation end -->
 
-{#if loading}
-  <p class="my-6">Loading all pokemons...</p>
-{:else}
-  <!-- card container -->
-  <section class="card-container">
-    {#each filteredPokemons as pokemon}
-      <a href={pokemon.species.name}>
-        <Card {pokemon} />
-      </a>
-    {/each}
-  </section>
-  <!-- card container end -->
-{/if}
+  {#if loading}
+    <p class="my-6">Loading all pokemons...</p>
+  {:else}
+    <!-- card container -->
+    <section class="card-container">
+      {#each filteredPokemons as pokemon}
+        <a href={pokemon.species.name}>
+          <Card {pokemon} />
+        </a>
+      {/each}
+    </section>
+    <!-- card container end -->
+  {/if}
 
-{#if filters.page < lastPage}
-  <button class="load-more" on:click={loadMore}>Load more Pokémon</button>
-{/if}
+  {#if filters.page < lastPage}
+    <button class="kl-btn" on:click={loadMore}>Load more Pokémon</button>
+  {/if}
 
-<button
-  class="fixed bottom-5 right-5 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow transition delay-75"
-  on:click={scrollToTop}
->
-  <i class="ri-arrow-up-fill"></i>
-</button>
-
+  <button class="fixed bottom-5 right-5 kl-btn" on:click={scrollToTop}>
+    <i class="ri-arrow-up-fill"></i>
+  </button>
 </div>

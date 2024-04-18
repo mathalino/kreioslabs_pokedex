@@ -13,7 +13,7 @@ body{
 
 /* homepage */
 .homepage {
-  @apply flex flex-col justify-center items-center px-3 sm:px-6 md:px-20;
+  @apply flex flex-col justify-center items-center px-3 sm:px-6 md:px-20 pb-10;
 }
 
 /* Nav */
@@ -72,6 +72,15 @@ body{
 .card:hover{
   @apply transition duration-150;
     background-color: rgba(255,255,255,.3);
+}
+
+.kl-btn{
+  @apply bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow transition delay-75;
+}
+
+
+.go-home{
+  @apply kl-btn absolute top-5 left-5 px-6 py-2 rounded-3xl z-40;
 }
 
 .type-normal {

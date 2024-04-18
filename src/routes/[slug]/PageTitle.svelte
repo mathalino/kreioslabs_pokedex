@@ -1,6 +1,5 @@
 <script>
-    export let color;
-    export let title;
+    export let color, title;
 </script>
 
 
