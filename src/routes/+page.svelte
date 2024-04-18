@@ -83,6 +83,9 @@
   <meta name="description" content="Pokédex Demo App" />
 </svelte:head>
 
+<div class="homepage">
+
+  
 <!-- Navigation -->
 <nav class="nav mt-8">
   <div class="w-full flex justify-center md:justify-start md:col-span-2">
@@ -141,3 +144,5 @@
 >
   <i class="ri-arrow-up-fill"></i>
 </button>
+
+</div>

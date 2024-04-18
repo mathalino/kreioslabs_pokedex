@@ -11,8 +11,8 @@ body{
   @apply bg-slate-100 relative;
 }
 
-/* Main */
-main {
+/* homepage */
+.homepage {
   @apply flex flex-col justify-center items-center px-3 sm:px-6 md:px-20;
 }
 
