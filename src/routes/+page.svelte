@@ -110,7 +110,7 @@
       </select>
     </div>
     <span class="text-gray-400 text-xs mt-2">
-      Search for a Pokémon by name or Pokédex number.
+      Search for a Pokémon by name or Pokédex number. 
     </span>
   </div>
   <!-- searchbar end -->
@@ -121,9 +121,9 @@
   <p class="my-6">Loading all pokemons...</p>
 {:else}
   <!-- card container -->
-  <section class="card-container container">
+  <section class="card-container">
     {#each filteredPokemons as pokemon}
-      <a href={`pokedex/${pokemon.species.name}`} class="relative">
+      <a href={pokemon.species.name}>
         <Card {pokemon} />
       </a>
     {/each}

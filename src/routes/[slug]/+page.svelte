@@ -1,12 +1,11 @@
 <script>
   export let data;
-  let pokemonWeaknesses = [];
-  let pokemonTypes = [];
+  import pokedex_logo from "$lib/images/pokedex-logo.png";
 
   import {
     capitalizeFirstLetter,
     formatPokemonId,
-  } from "../../../lib/js/reusables";
+  } from "../../lib/js/reusables";
 
   import DisplayData from "./DisplayData.svelte";
   import PokemonTypes from "./PokemonTypes.svelte";
@@ -22,6 +21,20 @@
   <title>{capitalizeFirstLetter(data.current.species.name)} | Pokédex</title>
 </svelte:head>
 
+
+<!-- Logo -->
+<div class="w-full my-8">
+  <div class="flex justify-center md:col-span-2">
+    <div class="w-fit">
+      <a href="/">
+        <img class="w-52" src={pokedex_logo} alt="Pokedex Logo" />
+      </a>
+    </div>
+  </div>
+
+</div>
+<!-- Logo end -->
+
 <!-- container -->
 <div class="container items-center" style="max-width: 600px">
   <!-- directional buttons -->
@@ -29,7 +42,7 @@
     {#if data.previous}
       <a href="/pokedex/{data.previous.species.name}">
         <div class="directional-btn rounded-tl-2xl">
-          &lt;<PageId id={data.previous.id} />
+          <i class="ri-arrow-left-line"></i><PageId id={data.previous.id} />
           <PageName name={data.previous.species.name} />
         </div>
       </a>
@@ -40,7 +53,7 @@
       <a href="/pokedex/{data.next.species.name}">
         <div class="directional-btn rounded-tr-2xl">
           <PageName name={data.next.species.name} />
-          <PageId id={data.next.id} /> &gt;
+          <PageId id={data.next.id} /><i class="ri-arrow-right-line"></i>
         </div>
       </a>
     {:else}
@@ -79,14 +92,14 @@
             {/each}
           </div>
           <!-- types end -->
-          <span class="sm:text-2xl">#{formatPokemonId(data.current.id)}</span>
+          <span class="sm:text-2xl"><i class="ri-hashtag"></i>{formatPokemonId(data.current.id)}</span>
         </div>
 
         <!-- stats -->
         <div class="px-4 py-2">
           {#each data.current.stats as stat}
             <div class="grid grid-cols-3">
-              <span class="col-span-2">
+              <span class="font-semibold col-span-2">
                 {capitalizeFirstLetter(stat.stat.name)}
               </span>
               <span>

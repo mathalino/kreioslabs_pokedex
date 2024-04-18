@@ -4,7 +4,7 @@
 
   import {
     capitalizeFirstLetter
-  } from "../../../lib/js/reusables";
+  } from "../../lib/js/reusables";
 </script>
 
 <div class="flex gap-4 text-sm sm:text-xl">
