@@ -636,6 +636,10 @@ video {
   z-index: 20;
 }
 
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -788,6 +792,10 @@ video {
   border-radius: 0.375rem;
 }
 
+.rounded-3xl {
+  border-radius: 1.5rem;
+}
+
 .rounded-r-2xl {
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
@@ -823,6 +831,14 @@ video {
 
 .p-1 {
   padding: 0.25rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .px-2 {

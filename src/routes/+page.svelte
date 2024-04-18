@@ -64,11 +64,11 @@
     await fetchData(
       `https://pokeapi.co/api/v2/pokemon?limit=${perPage}&offset=0`,
       0
-    ); // No delay for the initial fetch
+    );
     await fetchData(
       "https://pokeapi.co/api/v2/pokemon?limit=500&offset=0",
       100
-    ); // Delay for subsequent fetch
+    );
     selectLoading = false;
   });
 
@@ -123,13 +123,13 @@
     <!-- searchbar -->
     <div class="container md:col-span-4">
       <div class="search">
-        <input
-          type="text"
-          placeholder="Search..."
-          bind:value={filters.s}
-          on:keyup={() => filtersChanged()}
-        />
         {#if !selectLoading}
+          <input
+            type="text"
+            placeholder="Search..."
+            bind:value={filters.s}
+            on:keyup={() => filtersChanged()}
+          />
           <select bind:value={filters.sort} on:change={() => filtersChanged()}>
             <option value="id_asc">Lowest Number</option>
             <option value="id_desc">Highest Number</option>
@@ -137,7 +137,9 @@
             <option value="desc">Z-A</option>
           </select>
         {:else}
-          <div class="loader w-full h-full rounded-r-3xl"></div>
+          <div class="loader col-span-full w-full h-full rounded-3xl p-4">
+            &nbsp;
+          </div>
         {/if}
       </div>
       <span class="text-gray-400 text-xs mt-2">
