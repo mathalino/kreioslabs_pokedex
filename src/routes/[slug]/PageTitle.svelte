@@ -1,10 +1,14 @@
 <script>
-    export let typeName;
+    export let color;
     export let title;
 </script>
 
 
 
-<div class="p-2 type-{typeName}">
-    <h1 class="text-base sm:text-xl font-semibold">{title}</h1>
-  </div>
+
+<div
+class="bg-cyan-200 p-1 my-4 rounded-md"
+style="background: {color}"
+>
+<span class="text-sm font-bold">{title}</span>
+</div>

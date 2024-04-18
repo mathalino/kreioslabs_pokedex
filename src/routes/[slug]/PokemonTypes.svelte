@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="px-2 py-0.5 ms-2 mt-2 type-{pokemonType.name} font-extrabold h-fit text-sm sm:text-base"
+  class="px-2 p-0.5 type-{pokemonType.name} font-extrabold h-fit text-xs rounded-lg"
 >
   {pokemonType.name.toUpperCase()}
 </div>

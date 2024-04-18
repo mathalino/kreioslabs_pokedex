@@ -1,7 +1,17 @@
 export async function load({ fetch, params }) {
     let pokemonWeaknesses = [];
+    let pokemonImmunities = [];
+    let pokemonNormalDamage = [];
+    let pokemonDoubleDamage = [];
     let pokemonTypes = [];
-  
+    let pokemonSpecies = [];
+    
+    const res = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${params.slug}`
+    );
+    const data = await res.json();
+    pokemonSpecies = data;
+
     const current_res = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${params.slug}`
     );
@@ -13,6 +23,8 @@ export async function load({ fetch, params }) {
           const response = await fetch(item.type.url);
           const responseData = await response.json();
           pokemonWeaknesses = pokemonWeaknesses.concat(responseData.damage_relations.double_damage_from);
+          pokemonDoubleDamage = pokemonDoubleDamage.concat(responseData.damage_relations.double_damage_to);
+          pokemonImmunities = pokemonImmunities.concat(responseData.damage_relations.no_damage_from);
           return item.type;
         })
       );
@@ -44,6 +56,6 @@ export async function load({ fetch, params }) {
       }
     }
   
-    return { current: current_data, previous: previous_data, next: next_data, pokemonTypes: pokemonTypes, pokemonWeaknesses: pokemonWeaknesses };
+    return { current: current_data, previous: previous_data, next: next_data, pokemonTypes: pokemonTypes, pokemonWeaknesses: pokemonWeaknesses, pokemonSpecies:pokemonSpecies, pokemonDoubleDamage: pokemonDoubleDamage, pokemonImmunities: pokemonImmunities};
   }
   
