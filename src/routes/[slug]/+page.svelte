@@ -7,6 +7,7 @@
     typeColors,
   } from "../../lib/js/reusables";
 
+
   import DisplayData from "./DisplayData.svelte";
   import PokemonTypes from "./PokemonTypes.svelte";
   import PageTitle from "./PageTitle.svelte";
@@ -28,6 +29,8 @@
     }
     return "";
   }
+
+  
 </script>
 
 <svelte:head>
@@ -60,7 +63,7 @@
     <!-- image -->
     <img
       class="w-52 h-52"
-      src={data.current.sprites.other.dream_world.front_default}
+      src={data.current.pokemonImg}
       alt="{data.current.species.name} photo"
     />
     <!-- image end -->

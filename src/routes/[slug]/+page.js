@@ -16,6 +16,27 @@ export async function load({ fetch, params }) {
   );
   const current_data = await current_res.json();
 
+  // Fetch image data so it wont reload when previouse/next
+  const fetchImageData = (imageUrl) => {
+    return new Promise((resolve, reject) => {
+      fetch(imageUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch image");
+          }
+          return response.blob();
+        })
+        .then((blob) => {
+          const imgUrl = URL.createObjectURL(blob);
+          resolve(imgUrl);
+        })
+        .catch((error) => reject(error));
+    });
+  };
+
+  const currentImageUrl = current_data.sprites.other.dream_world.front_default;
+  const currentImgUrl = await fetchImageData(currentImageUrl);
+
   async function fetchPokemonTypes() {
     pokemonTypes = await Promise.all(
       current_data.types.map(async (item) => {
@@ -62,7 +83,7 @@ export async function load({ fetch, params }) {
   }
 
   return {
-    current: current_data,
+    current: { ...current_data, pokemonImg: currentImgUrl },
     previous: previous_data,
     next: next_data,
     pokemonTypes: pokemonTypes,
