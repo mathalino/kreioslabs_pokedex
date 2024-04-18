@@ -70,12 +70,9 @@ main {
 }
 
 .card span {
-  @apply text-gray-200 font-semibold;
+  @apply  text-sm text-gray-200 font-semibold;
 }
 
-.card h2 {
-  @apply font-bold text-xl;
-}
 
 .type-normal {
   background-color: #a8a878;

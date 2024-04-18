@@ -13,7 +13,7 @@
 
   let loading = true;
   let lastPage = 0;
-  const perPage = 20;
+  const perPage = 24;
 
   onMount(async () => {
     const response = await fetch(
@@ -41,6 +41,7 @@
   };
 
   const filtersChanged = () => {
+  console.log("Filters changed...");
     let pokemons = allPokemons.filter(
       (p) =>
         p.species.name.indexOf(filters.s.toLowerCase()) >= 0 ||
