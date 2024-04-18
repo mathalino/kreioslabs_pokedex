@@ -46,7 +46,6 @@
   };
 
   const filtersChanged = () => {
-    console.log("Filters changed...");
     let pokemons = allPokemons.filter(
       (p) =>
         p.species.name.indexOf(filters.s.toLowerCase()) >= 0 ||
@@ -124,7 +123,7 @@
     <!-- card container -->
     <section class="card-container">
       {#each filteredPokemons as pokemon}
-        <a href={pokemon.species.name}>
+        <a data-sveltekit-preload-code href={pokemon.species.name}>
           <Card {pokemon} />
         </a>
       {/each}
