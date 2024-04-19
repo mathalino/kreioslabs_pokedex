@@ -39,7 +39,7 @@ body {
 }
 
 .details-content {
-  @apply mb-5 bg-white overflow-auto p-4 z-10 rounded-2xl shadow-xl gap-3;
+  @apply mb-5 bg-white overflow-auto p-4 rounded-2xl shadow-xl gap-3;
   min-width: 320px;
   max-width: 500px;
   margin-top: -40px;
