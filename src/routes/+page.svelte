@@ -3,6 +3,8 @@
   import pokedex_logo from "$lib/images/pokedex-logo.png";
   import Card from "./Card.svelte";
 
+
+
   let pokemonUrls = [];
   let allPokemons = [];
   let filteredPokemons = [];
@@ -11,15 +13,20 @@
   let lastPage = 0;
   const perPage = 24;
 
+  
+
   let filters = {
     s: "",
     sort: "id_asc",
     page: 1,
   };
 
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  
 
   const fetchPokemonData = async (urls) => {
     return await Promise.all(
@@ -57,15 +64,16 @@
         filteredPokemons = allPokemons.slice(0, filters.page * perPage);
         lastPage = Math.ceil(result.length / perPage);
         loading = false;
+
       });
   };
 
   onMount(async () => {
-    const firstData = await fetchData(
+    await fetchData(
       `https://pokeapi.co/api/v2/pokemon?limit=72&offset=0`,
       0
     );
-    const secondData = await fetchData(
+    await fetchData(
       "https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0",
       1000
     );
@@ -153,7 +161,7 @@
     <!-- card container -->
     <section class="card-container">
       {#each filteredPokemons as pokemon}
-        <a href={pokemon.species.name}>
+        <a data-sveltekit-preload-data href={pokemon.species.name}>
           <Card {pokemon} />
         </a>
       {/each}

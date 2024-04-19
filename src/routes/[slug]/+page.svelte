@@ -11,7 +11,6 @@
   import PageTitle from "./PageTitle.svelte";
   import DisplayStat from "./DisplayStat.svelte";
   import TypeEffectiveness from "./TypeEffectiveness.svelte";
-  import BreedingModal from "./BreedingModal.svelte";
 
   function getEnglishFlavorText(pokemonSpecies) {
     for (let entry of pokemonSpecies.flavor_text_entries) {
@@ -28,17 +27,6 @@
     }
     return "";
   }
-
-
-let showModal = false;
-
-function openModal() {
-  showModal = true;
-}
-
-function closeModal() {
-  showModal = false;
-}
 
 
 
@@ -152,13 +140,5 @@ function closeModal() {
         title="Immune against"
       />
     </div>
-    <PageTitle color={typeColors[data.current.types[0].type.name]} title="Try breeding!" />
-    <!-- Modal backdrop -->
-    {#if showModal}
-      <BreedingModal {closeModal} color={data.current.types[0].type.name} parentPokemonImg={data.current.pokemonImg}/>
-    {/if}
-
-<!-- Button to open modal -->
-<button on:click={openModal}>Open Modal</button>
   </div>
 </div>

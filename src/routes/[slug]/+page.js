@@ -4,6 +4,7 @@ export async function load({ fetch, params }) {
   let pokemonDoubleDamage = [];
   let pokemonTypes = [];
   let pokemonSpecies = [];
+  let allPokemon = [];
 
   const res = await fetch(
     `https://pokeapi.co/api/v2/pokemon-species/${params.slug}`
@@ -87,7 +88,7 @@ export async function load({ fetch, params }) {
   
 
   await fetchPokemonTypes();
-  
+   
   return {
     current: { ...current_data, pokemonImg: currentImgUrl },
     previous: previous_data,
