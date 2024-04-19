@@ -61,10 +61,7 @@
   };
 
   onMount(async () => {
-    await fetchData(
-      `https://pokeapi.co/api/v2/pokemon?limit=${perPage}&offset=0`,
-      0
-    );
+    await fetchData(`https://pokeapi.co/api/v2/pokemon?limit=72&offset=0`, 0);
     await fetchData(
       "https://pokeapi.co/api/v2/pokemon?limit=500&offset=0",
       100
@@ -123,24 +120,20 @@
     <!-- searchbar -->
     <div class="container md:col-span-4">
       <div class="search">
-        {#if !selectLoading}
-          <input
-            type="text"
-            placeholder="Search..."
-            bind:value={filters.s}
-            on:keyup={() => filtersChanged()}
-          />
-          <select bind:value={filters.sort} on:change={() => filtersChanged()}>
-            <option value="id_asc">Lowest Number</option>
+        <input
+          type="text"
+          placeholder="Search..."
+          bind:value={filters.s}
+          on:keyup={() => filtersChanged()}
+        />
+        <select bind:value={filters.sort} on:change={() => filtersChanged()}>
+          <option value="id_asc">Lowest Number</option>
+          {#if !selectLoading}
             <option value="id_desc">Highest Number</option>
             <option value="asc">A-Z</option>
             <option value="desc">Z-A</option>
-          </select>
-        {:else}
-          <div class="loader col-span-full w-full h-full rounded-3xl p-4">
-            &nbsp;
-          </div>
-        {/if}
+          {/if}
+        </select>
       </div>
       <span class="text-gray-400 text-xs mt-2">
         Search for a Pokémon by name or Pokédex number.
