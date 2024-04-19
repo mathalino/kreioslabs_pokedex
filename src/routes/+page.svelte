@@ -34,7 +34,7 @@
     return await Promise.all(
       pokemonData.map(async (data) => {
         const imageResponse = await fetch(
-          data.sprites.other.dream_world.front_default
+          data.sprites.other.home.front_default
         );
         const imageBlob = await imageResponse.blob();
         const imageUrl = URL.createObjectURL(imageBlob);
@@ -61,11 +61,15 @@
   };
 
   onMount(async () => {
-    await fetchData(`https://pokeapi.co/api/v2/pokemon?limit=72&offset=0`, 0);
-    await fetchData(
-      "https://pokeapi.co/api/v2/pokemon?limit=500&offset=0",
-      100
+    const firstData = await fetchData(
+      `https://pokeapi.co/api/v2/pokemon?limit=72&offset=0`,
+      0
     );
+    const secondData = await fetchData(
+      "https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0",
+      1000
+    );
+
     selectLoading = false;
   });
 
@@ -165,16 +169,3 @@
     <i class="ri-arrow-up-fill"></i>
   </button>
 </div>
-
-<style>
-  .loader {
-    background: linear-gradient(90deg, #0001 33%, #0005 50%, #0001 66%) #f2f2f2;
-    background-size: 300% 100%;
-    animation: l1 1s infinite linear;
-  }
-  @keyframes l1 {
-    0% {
-      background-position: right;
-    }
-  }
-</style>

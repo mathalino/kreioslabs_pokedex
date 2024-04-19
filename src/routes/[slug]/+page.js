@@ -34,7 +34,7 @@ export async function load({ fetch, params }) {
     });
   };
 
-  const currentImageUrl = current_data.sprites.other.dream_world.front_default;
+  const currentImageUrl = current_data.sprites.other.home.front_default;
   const currentImgUrl = await fetchImageData(currentImageUrl);
 
   async function fetchPokemonTypes() {
@@ -72,7 +72,7 @@ export async function load({ fetch, params }) {
   let next_data = null;
   let next_id = current_id + 1;
   // Check if the next Pokémon ID exceeds the maximum ID
-  while (next_id <= 500 && !next_data) {
+  while (next_id <= 1025 && !next_data) {
     const next_res = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${next_id}`
     );

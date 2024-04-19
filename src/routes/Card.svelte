@@ -15,12 +15,12 @@
         ><i class="ri-hashtag"></i>{formatPokemonId(pokemon.id)}</span
       >
       <img
-        src={pokemon.sprites.other.dream_world.front_default}
+        src={pokemon.sprites.other.home.front_default}
         alt="{pokemon.species.name} photo"
         class="w-20 h-20 absolute inset-0 m-auto"
       />
       <div
-        class="h-20 -z-10 px-2 py-1 flex items-center justify-center absolute bottom-0 w-full rounded-lg bg-gray-300"
+        class="h-16 -z-10 px-2 py-1 flex items-center justify-center absolute bottom-0 w-full rounded-lg bg-gray-300"
         style="background: {pokemon.types.length > 1
           ? 'linear-gradient(90deg, ' +
             typeColors[pokemon.types[0].type.name] +

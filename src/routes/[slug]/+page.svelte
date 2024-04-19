@@ -1,12 +1,10 @@
 <script>
   export let data;
-
   import {
     capitalizeFirstLetter,
     formatPokemonId,
     typeColors,
   } from "../../lib/js/reusables";
-
 
   import DisplayData from "./DisplayData.svelte";
   import PokemonTypes from "./PokemonTypes.svelte";
@@ -29,8 +27,6 @@
     }
     return "";
   }
-
-  
 </script>
 
 <svelte:head>
@@ -56,9 +52,17 @@
   </div>
   <div class="z-20 flex items-center sm:gap-10">
     {#if data.previous}
-      <a data-sveltekit-preload-data href="/{data.previous.species.name}" class="kl-btn">
-          <i class="ri-arrow-left-line"></i>
+      <a
+        data-sveltekit-preload-data
+        href="/{data.previous.species.name}"
+        class="kl-btn"
+      >
+        <i class="ri-arrow-left-line"></i>
       </a>
+    {:else}
+      <div class="bg-transparent px-6">
+        <i class="ri-arrow-left-line text-transparent"></i>
+      </div>
     {/if}
     <!-- image -->
     <img
@@ -68,24 +72,29 @@
     />
     <!-- image end -->
     {#if data.next}
-      <a data-sveltekit-preload-data href="/{data.next.species.name}" class="kl-btn">
-          <i class="ri-arrow-right-line"></i>
+      <a
+        data-sveltekit-preload-data
+        href="/{data.next.species.name}"
+        class="kl-btn"
+      >
+        <i class="ri-arrow-right-line"></i>
       </a>
+    {:else}
+      <div class="bg-transparent px-6">
+        <i class="ri-arrow-right-line text-transparent"></i>
+      </div>
     {/if}
   </div>
   <div class="details-content">
     <!-- type -->
-    <div class="details-type ">
+    <div class="details-type">
       {#each data.pokemonTypes as item}
         <PokemonTypes pokemonType={item} />
       {/each}
     </div>
     <!-- type end -->
 
-    <PageTitle
-      color={typeColors[data.current.types[0].type.name]}
-      title="About"
-    />
+    <PageTitle color={typeColors[data.current.types[0].type.name]} title="About" />
 
     <div class="px-3">
       <div class="text-center">
@@ -103,10 +112,7 @@
       <!-- abilities, height, weight end -->
     </div>
 
-    <PageTitle
-      color={typeColors[data.current.types[0].type.name]}
-      title="Stats"
-    />
+    <PageTitle color={typeColors[data.current.types[0].type.name]} title="Stats" />
     <div class="px-3">
       {#each data.current.stats as stat}
         <DisplayStat
@@ -116,10 +122,7 @@
         />
       {/each}
     </div>
-    <PageTitle
-      color={typeColors[data.current.types[0].type.name]}
-      title="Type Effectiveness"
-    />
+    <PageTitle color={typeColors[data.current.types[0].type.name]} title="Type Effectiveness" />
     <div class="px-3">
       <TypeEffectiveness
         pokemonTypes={data.pokemonWeaknesses}
@@ -134,6 +137,6 @@
         title="Immune against"
       />
     </div>
+    <PageTitle color={typeColors[data.current.types[0].type.name]} title="Habitat" />
   </div>
-
 </div>
