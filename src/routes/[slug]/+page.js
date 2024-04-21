@@ -1,4 +1,8 @@
-export async function load({ fetch, params }) {
+export async function load({ fetch, params,parent }) {
+  const parentData = await parent();
+  console.log('yawa',parentData);
+  console.log('title:',parentData)
+
   let pokemonWeaknesses = [];
   let pokemonImmunities = [];
   let pokemonDoubleDamage = [];

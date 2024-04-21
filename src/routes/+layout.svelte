@@ -5,7 +5,7 @@
 
 
 <main>
-  <slot />
+  <slot/>
 </main>
 
 <!-- <footer class="mt-6">

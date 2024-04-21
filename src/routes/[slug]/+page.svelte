@@ -1,5 +1,6 @@
 <script>
-  export let data;
+  export let data, title;
+  console.log('title',title)
   import {
     capitalizeFirstLetter,
     formatPokemonId,
