@@ -20,7 +20,6 @@ export async function load({ fetch, params }) {
   });
   const current_data = currentFilterData[0];
 
-  console.log(pokemons)
 
 
 
