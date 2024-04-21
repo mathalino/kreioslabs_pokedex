@@ -1,12 +1,9 @@
 <script>
   import { onMount } from "svelte";
   import pokedex_logo from "$lib/images/pokedex-logo.png";
-  import Card from "./Card.svelte";
+  
   import { pokemons, updatePokemons } from "./pokemons";
-
-  console.log("pokemons", pokemons);
-
-  let pokemonUrls = [];
+  import Card from "./Card.svelte";
   let allPokemons = [];
   let filteredPokemons = [];
   let loading = true;
@@ -22,7 +19,7 @@
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
+  
   const fetchPokemonData = async (urls) => {
     return await Promise.all(
       urls.map(async (pokemon) => {
@@ -32,7 +29,7 @@
     );
   };
 
-  const fetchPokemonImages = async (pokemonData) => {
+  const fetchPokemonImagesAndSpecies = async (pokemonData) => {
     return await Promise.all(
       pokemonData.map(async (data) => {
         const imageResponse = await fetch(
@@ -41,6 +38,12 @@
         const imageBlob = await imageResponse.blob();
         const imageUrl = URL.createObjectURL(imageBlob);
         data.image = imageUrl;
+
+        // Fetch species data
+        const speciesResponse = await fetch(data.species.url);
+        const speciesData = await speciesResponse.json();
+        data.speciesData = speciesData;
+
         return data;
       })
     );
@@ -49,32 +52,27 @@
   const fetchData = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
-    pokemonUrls = data.results;
+    const pokemonUrls = data.results;
 
-    await fetchPokemonData(pokemonUrls)
-      .then(fetchPokemonImages)
-      .then((result) => {
-        updatePokemons(result);
-        allPokemons = result;
-        filteredPokemons = allPokemons.slice(0, filters.page * perPage);
-        lastPage = Math.ceil(result.length / perPage);
-      });
+    const pokemonData = await fetchPokemonData(pokemonUrls);
+    const pokemonsWithImagesAndSpecies = await fetchPokemonImagesAndSpecies(pokemonData);
+
+    updatePokemons(pokemonsWithImagesAndSpecies);
+    allPokemons = pokemonsWithImagesAndSpecies;
+    filteredPokemons = allPokemons.slice(0, filters.page * perPage);
+    lastPage = Math.ceil(pokemonsWithImagesAndSpecies.length / perPage);
   };
 
+  
   onMount(async () => {
     allPokemons = pokemons;
     filteredPokemons = allPokemons.slice(0, perPage);
     lastPage = Math.ceil(pokemons.length / perPage);
     loading = false;
 
-    console.log("---------pre");
-
-    await fetchData(
-      `https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0`
-    );
-
-    console.log(pokemons);
-    console.log("---------post");
+    if (pokemons.length <= 48) {
+      await fetchData(`https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0`);
+    }
   });
 
   const filtersChanged = () => {
@@ -157,7 +155,7 @@
   <!-- card container -->
   <section class="card-container">
     {#each filteredPokemons as pokemon}
-      <a data-sveltekit-preload-data href={pokemon.species.name}>
+      <a data-sveltekit-preload-data href={pokemon.id}>
         <Card {pokemon} />
       </a>
     {/each}

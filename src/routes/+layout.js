@@ -21,9 +21,8 @@ export const load = async (loadEvent) => {
     let pokemonUrls = data.results;
 
     const pokemonData = await fetchPokemonData(pokemonUrls);
-    const pokemonsWithImages = await fetchPokemonImages(pokemonData); // Fetch images for pokemons
-
-    updatePokemons(pokemonsWithImages); // Update pokemons variable with combined data and images
+    const pokemonsWithImages = await fetchPokemonImages(pokemonData);
+    updatePokemons(pokemonsWithImages); 
   };
 
   const fetchPokemonImages = async (pokemonData) => {
@@ -39,6 +38,7 @@ export const load = async (loadEvent) => {
       })
     );
   };
-
+  
   await fetchData();
+
 };

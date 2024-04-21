@@ -1,6 +1,5 @@
 <script>
-  export let data, title;
-  console.log('title',title)
+  export let data;
   import {
     capitalizeFirstLetter,
     formatPokemonId,
@@ -58,7 +57,7 @@
     {#if data.previous}
       <a
         data-sveltekit-preload-data
-        href="/{data.previous.species.name}"
+        href="/{data.previous.id}"
         class="kl-btn"
       >
         <i class="ri-arrow-left-line"></i>
@@ -71,14 +70,14 @@
     <!-- image -->
     <img
       class="w-52 h-52"
-      src={data.current.pokemonImg}
+      src={data.current.image}
       alt="{data.current.species.name} photo"
     />
     <!-- image end -->
     {#if data.next}
       <a
         data-sveltekit-preload-data
-        href="/{data.next.species.name}"
+        href="/{data.next.id}"
         class="kl-btn"
       >
         <i class="ri-arrow-right-line"></i>

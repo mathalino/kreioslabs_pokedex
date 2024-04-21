@@ -1,6 +1,5 @@
-export let pokemons = ['yawa'];
+export let pokemons = [];
 
-// Function to update the pokemons variable
 export const updatePokemons = (newPokemons) => {
     pokemons = newPokemons;
 };
